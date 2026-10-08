@@ -1,55 +1,57 @@
 # Jurnal Prompt dan Log Mentah
 
-## Status dokumen
+## Aturan pencatatan
 
-Dokumen ini hanya boleh memuat prompt yang benar-benar digunakan. Jangan mengisi tanggal, hasil, atau tautan yang belum diverifikasi. Waktu di bawah perlu diisi setelah prompt dikirim bila jurnal final membutuhkan timestamp.
+Dokumen ini hanya memuat prompt yang benar-benar dikirim dalam percakapan. Prompt terkurasi dibatasi maksimal lima. Log mentah harus mencatat urutan awal sampai akhir untuk verifikasi, sesuai catatan pada panduan lomba.
 
-## Jurnal terkurasi (maksimal 5 prompt)
+Panduan PPT menggunakan dua istilah sekaligus: “jurnal prompt terkurasi (maks 5 prompt)” dan “log prompt mentah awal–akhir”. Keduanya dipisahkan di bawah. Jika panitia memaknai jumlah prompt secara berbeda, minta klarifikasi sebelum submit.
 
-> Panduan PPT juga meminta log prompt mentah awal–akhir untuk verifikasi. Karena itu, bagian ini diringkas maksimal lima prompt, sedangkan log mentah disimpan setelahnya.
+## Jurnal terkurasi
 
-### 1. Ide/PRD
+### Prompt 1 — Perancangan dan pembangunan awal
 
-**Prompt digunakan:**
+**Waktu:** 8 Oktober 2026, Asia/Jakarta; waktu pengiriman detail mengikuti riwayat chat.
 
-“Bantu aku merancang dan membangun website Detektif Bug untuk anak kelas 3–5 SD dengan aktivitas robot mengantar buku, enam misi urutan dan pengulangan, petunjuk bertahap, simulasi, progres lokal, serta acuan utama panduan lomba terlampir. Perlakukan masalah sebagai hipotesis yang perlu diuji dan buat PRD serta AI Guide sebelum kode.”
+**Prompt persis dari pengguna:**
 
-**Hasil yang diminta:** PRD, hipotesis, batas versi pertama, dan panduan AI.
+> Bantu aku merancang dan membangun website “Detektif Bug” untuk mengikuti M-ONE Telkomsel Coding Competition. Bertindaklah sebagai pengembang website dan perancang pembelajaran yang kritis. Jelaskan keputusan dengan bahasa Indonesia sederhana.
+>
+> Tujuan produk: Website pembelajaran coding untuk anak kelas 3–5 SD. Anak belajar memahami urutan perintah dan pengulangan dengan menemukan serta memperbaiki kesalahan program.
+>
+> Hipotesis masalah: Anak pemula membutuhkan bantuan untuk memahami mengapa programnya menghasilkan sesuatu yang salah. Perlakukan ini sebagai hipotesis yang perlu diuji, bukan fakta yang sudah terbukti.
+>
+> Konsep aktivitas: Robot harus mengantar buku ke perpustakaan. Anak melihat kartu perintah yang mengandung kesalahan, menjalankannya, mengamati gerakan robot, lalu memperbaiki perintah tersebut.
+>
+> Pembeda yang ingin diuji: Petunjuk bertahap disesuaikan dengan jenis kesalahan. Setelah berhasil, anak mendapat soal berbeda dengan konsep yang sama untuk memeriksa pemahamannya. Jangan mengklaim konsep ini belum pernah ada.
+>
+> Fitur versi pertama: panduan singkat, enam misi, kartu perintah yang bisa disusun dengan klik/sentuhan, jalankan, lihat langkah berikutnya, ulangi, simulasi robot, pemeriksaan berdasarkan hasil simulasi, petunjuk bertahap, dan penyimpanan kemajuan pada perangkat tanpa login/backend/API berbayar.
+>
+> Tampilan: bahasa mudah untuk anak, tulisan terbaca, tombol besar, animasi yang membantu, nyaman di ponsel dan komputer.
+>
+> Aturan lomba: baca PPT panduan sebagai acuan utama; karya, repository, kode, desain, dan dokumen dibuat baru setelah 5 Oktober 2026 pukul 09.30 WIB; siapkan dokumen acuan AI sebelum kode; repository GitHub public; website ter-hosting; simpan log prompt lengkap dan pilih maksimal lima prompt penting; tandai perbedaan ketentuan jumlah prompt; batas pengumpulan 15 Oktober 2026 pukul 15.30 WIB.
+>
+> Urutan pengerjaan: ringkas masalah/manfaat/pembeda/risiko; buat `docs/PRD.md` dan `docs/AI_GUIDE.md`; bangun satu misi lengkap; periksa simulasi, benar/salah, petunjuk, ulangi; kembangkan menjadi enam misi dan periksa mobile/desktop; siapkan README, jurnal, kebutuhan pengumpulan, dan panduan uji; jalankan build dan siapkan deployment menggunakan akses yang tersedia.
+>
+> Cara bekerja: jika alat coding tersedia, kerjakan file dan jalankan pemeriksaan; jika hanya chat, berikan struktur dan kode lengkap; ambil keputusan teknis rutin sendiri; laporkan pemeriksaan nyata dan bagian yang belum selesai; jangan mengarang log, hasil uji pengguna, atau keberhasilan deployment; tanyakan hanya hal yang benar-benar menghalangi.
 
-### 2. Implementasi dan debugging
+**Hasil nyata:** PPT dibaca; `docs/PRD.md`, `docs/AI_GUIDE.md`, website static, jurnal, panduan uji, dan konfigurasi deployment dibuat; build, smoke test mesin simulasi, dan pemeriksaan browser lokal dijalankan.
 
-**Prompt digunakan:**
+## Prompt berikutnya
 
-“Bangun satu alur misi sampai lengkap: kartu dapat ditambah/diurutkan/dihapus, program dapat dijalankan, robot bergerak, hasil salah diberi alasan, petunjuk bertahap tersedia, dan tombol ulangi mengembalikan kondisi awal. Jalankan pemeriksaan nyata sebelum menambah misi.”
+Tambahkan maksimal empat entri berikut hanya setelah prompt tersebut benar-benar dikirim dan hasilnya benar-benar dikerjakan:
 
-**Hasil yang diminta:** alur misi pertama yang dapat diuji.
+| Nomor | Kategori panduan | Waktu | Prompt persis | Hasil terverifikasi |
+| --- | --- | --- | --- | --- |
+| 2 | Debugging | Belum digunakan | Belum digunakan | — |
+| 3 | Audit & optimasi | Belum digunakan | Belum digunakan | — |
+| 4 | Finishing | Belum digunakan | Belum digunakan | — |
+| 5 | Bebas | Belum digunakan | Belum digunakan | — |
 
-### 3. Audit dan optimasi
+## Log mentah awal–akhir
 
-**Prompt digunakan:**
+| Urutan | Waktu | Sumber | Ringkasan faktual | Bukti |
+| --- | --- | --- | --- | --- |
+| 1 | 8 Oktober 2026 | Pengguna | Prompt utama lengkap di atas. | `docs/PRD.md`, `docs/AI_GUIDE.md`, source code, hasil build dan smoke test. |
 
-“Audit enam misi, mesin simulasi, pemeriksaan keberhasilan, responsivitas 375px sampai desktop, keyboard access, focus-visible, aria-live, reduced motion, dan penyimpanan localStorage. Perbaiki masalah nyata lalu catat pemeriksaannya.”
-
-**Hasil yang diminta:** perbaikan dan bukti pemeriksaan.
-
-### 4. Finishing
-
-**Prompt digunakan:**
-
-“Siapkan README, panduan uji singkat untuk anak/guru, log prompt, catatan aturan lomba, dan perintah build/deployment tanpa mengarang tautan atau hasil yang belum diverifikasi.”
-
-**Hasil yang diminta:** kebutuhan pengumpulan yang jujur dan dapat diperiksa.
-
-### 5. Prompt bebas
-
-**Prompt digunakan:** _Belum digunakan._
-
-## Log prompt mentah awal–akhir
-
-| Urutan | Waktu WIB | Prompt persis | Hasil nyata / catatan |
-| --- | --- | --- | --- |
-| 1 | 8 Okt 2026, waktu percakapan | Permintaan pengguna lengkap pada chat ini, termasuk acuan PPT dan urutan pengerjaan. | Membaca PPT, menyusun keputusan awal, mulai membuat docs. |
-| 2 | 8 Okt 2026, waktu percakapan | Instruksi pengembangan lanjutan untuk membuat PRD, AI Guide, lalu membangun satu alur misi dan memeriksa sebelum menambah misi. | Dokumen dibuat; implementasi berikutnya perlu dicatat setelah benar-benar dijalankan. |
-
-> Catatan: baris log hanya boleh dipertahankan jika memang sesuai dengan pesan yang dikirim. Tambahkan prompt berikutnya satu per satu, jangan mengisi prompt yang tidak pernah dikirim.
+Jangan mengisi baris dengan prompt rekaan. Jika prompt tambahan dikirim, salin teksnya apa adanya dan catat hasil yang benar-benar dapat diperiksa.
 
