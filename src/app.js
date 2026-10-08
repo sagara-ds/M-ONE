@@ -1,4 +1,42 @@
+import { FeedbackEngine } from './feedback.js';
+
 const STORAGE_KEY = 'detektif-bug-progress-v1';
+const PREFERENCES_KEY = 'detektif-bug-preferences-v1';
+const preferences = loadPreferences();
+let playbackTimer = null;
+let runVersion = 0;
+let audioNote = '';
+const feedback = new FeedbackEngine({ onUnavailable: (_kind, message) => {
+  audioNote = message;
+  const note = typeof document !== 'undefined' && document.querySelector('#audio-note');
+  if (note) note.textContent = message;
+} });
+feedback.setOptions(preferences);
+
+function loadPreferences() {
+  const defaults = { sound: false, voice: false, volume: 0.35, calm: false, pace: 'normal' };
+  try {
+    const saved = JSON.parse(localStorage.getItem(PREFERENCES_KEY));
+    if (saved) return { sound: saved.sound === true, voice: saved.voice === true,
+      volume: Number.isFinite(saved.volume) ? Math.max(0, Math.min(1, saved.volume)) : defaults.volume,
+      calm: saved.calm === true, pace: saved.pace === 'slow' ? 'slow' : 'normal' };
+  } catch { /* Pilihan tetap dapat dipakai tanpa penyimpanan lokal. */ }
+  return defaults;
+}
+
+function savePreferences() {
+  try { localStorage.setItem(PREFERENCES_KEY, JSON.stringify(preferences)); } catch { /* best effort */ }
+  feedback.setOptions(preferences);
+  applyMotionPreference();
+}
+
+function calmMotion() {
+  return preferences.calm || (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+}
+
+function applyMotionPreference() {
+  if (typeof document !== 'undefined') document.documentElement.classList.toggle('calm-motion', calmMotion());
+}
 
 const COMMANDS = {
   forward: { label: 'Maju 1 langkah', short: 'maju', tone: 'blue', kind: 'move' },
@@ -110,7 +148,7 @@ const MISSIONS = [
     hints: [
       'Jalankan dan amati apakah robot berhenti di baris perpustakaan atau melewatinya.',
       'Periksa angka pada pengulangan pertama setelah robot berbelok ke atas.',
-      'Robot harus berhenti satu baris di atas buku sebelum belok kanan lagi.',
+      'Hitung jarak ke atas dari buku sampai baris perpustakaan sebelum belok kanan lagi.',
     ],
   },
 ];
@@ -157,6 +195,13 @@ function icon(name, size = 20) {
     turnLeft: '<path d="M19 12H5"/><path d="m10 7-5 5 5 5"/>',
     turnRight: '<path d="M5 12h14"/><path d="m14 7 5 5-5 5"/>',
     repeat: '<path d="M17 6h3v4M7 18H4v-4"/><path d="M20 10a8 8 0 0 0-14-2M4 14a8 8 0 0 0 14 2"/>',
+    sound: '<path d="M11 4 6 8H3v8h3l5 4V4Z"/><path d="M15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/>',
+    muted: '<path d="M11 4 6 8H3v8h3l5 4V4Z"/><path d="m16 9 5 6m0-6-5 6"/>',
+    voice: '<rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/>',
+    pause: '<path d="M8 5v14M16 5v14"/>',
+    step: '<path d="m5 5 10 7-10 7V5ZM19 5v14"/>',
+    leaf: '<path d="M20 3C7 2 2 9 5 16c7 6 16 0 15-13ZM5 19l10-9"/>',
+    star: '<path d="m12 3 2.8 5.7 6.3.9-4.6 4.4 1.1 6.3-5.6-3-5.6 3 1.1-6.3L3 9.6l6.2-.9Z"/>',
   };
   return `<svg class="icon" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.check}</svg>`;
 }
@@ -211,12 +256,12 @@ function executeOne(robot, command, mission) {
 function simulate(program, mission) {
   let robot = { ...mission.start, carrying: false, delivered: false, invalid: false, message: '' };
   const steps = [{ robot: cloneRobot(robot), command: 'start', label: 'Mulai' }];
-  program.forEach((command) => {
+  program.forEach((command, programIndex) => {
     const repeat = COMMANDS[command]?.repeat || 1;
     for (let count = 0; count < repeat; count += 1) {
       const atomic = repeat > 1 ? 'forward' : command;
       robot = executeOne(robot, atomic, mission);
-      steps.push({ robot: cloneRobot(robot), command, label: COMMANDS[command]?.label || command, repeatIndex: count + 1, repeatTotal: repeat });
+      steps.push({ robot: cloneRobot(robot), command, programIndex, label: COMMANDS[command]?.label || command, repeatIndex: count + 1, repeatTotal: repeat });
     }
   });
   const success = Boolean(robot.delivered && !robot.invalid);
@@ -246,17 +291,59 @@ function renderMap(mission, robot) {
   const cells = [];
   for (let y = 0; y < 4; y += 1) {
     for (let x = 0; x < 5; x += 1) {
-      const isRobot = robot.x === x && robot.y === y;
       const isBook = mission.book.x === x && mission.book.y === y;
       const isTarget = mission.target.x === x && mission.target.y === y;
-      cells.push(`<div class="map-cell ${isRobot ? 'has-robot' : ''} ${isBook ? 'has-book' : ''} ${isTarget ? 'has-target' : ''}" aria-label="Petak ${x + 1}, ${y + 1}">
+      cells.push(`<div class="map-cell ${isBook ? 'has-book' : ''} ${isTarget ? 'has-target' : ''}" data-x="${x}" data-y="${y}" aria-label="Petak ${x + 1}, ${y + 1}">
         ${isTarget ? `<span class="cell-object target-object">${icon('flag', 19)}<small>rak</small></span>` : ''}
-        ${isBook && !robot.carrying && !robot.delivered ? `<span class="cell-object book-object">${icon('book', 18)}<small>buku</small></span>` : ''}
-        ${isRobot ? `<span class="robot-token" style="--robot-rotation:${robot.dir * 90}deg">${directionArrow(robot.dir)}</span>` : ''}
+        ${isBook ? `<span class="cell-object book-object" ${robot.carrying || robot.delivered ? 'hidden' : ''}>${icon('book', 18)}<small>buku</small></span>` : ''}
       </div>`);
     }
   }
-  return `<div class="map-wrap"><div class="map-grid" role="img" aria-label="Peta misi dengan robot, buku, dan perpustakaan">${cells.join('')}</div><div class="map-legend"><span><i class="legend-dot dot-robot"></i>robot</span><span><i class="legend-dot dot-book"></i>buku</span><span><i class="legend-dot dot-target"></i>perpustakaan</span></div></div>`;
+  return `<div class="map-wrap"><div class="map-grid" role="img" aria-label="Peta misi dengan robot, buku, dan perpustakaan">${cells.join('')}<div class="robot-position" style="--robot-x:${robot.x};--robot-y:${robot.y}"><span class="robot-token"><svg class="mini-robot" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 6V3"/><circle cx="20" cy="3" r="2" fill="#facc15"/><rect x="5" y="7" width="30" height="27" rx="9" fill="#77adff"/><rect x="10" y="12" width="20" height="14" rx="5" fill="#d9f8ff"/><circle cx="15" cy="18" r="1.8" fill="#0f172a"/><circle cx="25" cy="18" r="1.8" fill="#0f172a"/><path d="M16 22q4 3 8 0"/><path d="M12 34v3M28 34v3"/></svg><span class="robot-direction" style="transform:rotate(${robot.dir * 90}deg)">${icon('forward', 17)}</span><span class="carried-book" ${!robot.carrying || robot.delivered ? 'hidden' : ''}>${icon('book', 14)}</span></span></div><div class="celebration-layer" aria-hidden="true"></div></div><div class="map-legend"><span><i class="legend-dot dot-robot"></i>robot</span><span><i class="legend-dot dot-book"></i>buku</span><span><i class="legend-dot dot-target"></i>perpustakaan</span></div></div>`;
+}
+
+function renderSettings() {
+  return `<section class="play-settings panel" aria-label="Pilihan suara dan gerakan"><div class="settings-title"><span class="overline">TEMAN BERMAINMU</span><h2>Atur petualanganmu</h2><p id="audio-note" role="status">${audioNote || 'Suara boleh dinyalakan. Tanpa suara juga bisa bermain.'}</p></div><div class="settings-controls"><div class="settings-toggles"><button class="setting-button ${preferences.sound ? 'is-on' : ''}" data-action="toggle-sound" aria-pressed="${preferences.sound}">${icon(preferences.sound ? 'sound' : 'muted', 19)} Suara efek: ${preferences.sound ? 'nyala' : 'mati'}</button><button class="setting-button ${preferences.voice ? 'is-on' : ''}" data-action="toggle-voice" aria-pressed="${preferences.voice}">${icon('voice', 19)} Bacakan: ${preferences.voice ? 'nyala' : 'mati'}</button><button class="setting-button ${calmMotion() ? 'is-on' : ''}" data-action="toggle-calm" aria-pressed="${calmMotion()}" ${typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'disabled' : ''}>${icon('leaf', 19)} Gerak tenang: ${calmMotion() ? 'nyala' : 'mati'}</button></div><div class="settings-sliders"><label class="volume-control" for="sound-volume">Volume <input id="sound-volume" type="range" min="0" max="100" step="5" value="${Math.round(preferences.volume * 100)}" aria-label="Volume suara"/><output for="sound-volume">${Math.round(preferences.volume * 100)}%</output></label><label class="pace-control" for="playback-pace">Kecepatan <select id="playback-pace"><option value="normal" ${preferences.pace === 'normal' ? 'selected' : ''}>Biasa</option><option value="slow" ${preferences.pace === 'slow' ? 'selected' : ''}>Pelan</option></select></label></div></div></section>`;
+}
+
+function stepDescription() {
+  const step = state.simulation?.steps[state.currentStep];
+  if (!step || state.currentStep === 0) return 'Robot menunggu perintah';
+  return `Kartu ${step.programIndex + 1}: ${step.label}${step.repeatTotal > 1 ? ` · ${step.repeatIndex} dari ${step.repeatTotal}` : ''}`;
+}
+
+function robotCaption(robot) {
+  if (robot.delivered) return 'Buku sudah diantar';
+  if (robot.carrying) return 'Robot membawa buku';
+  return 'Robot belum membawa buku';
+}
+
+function directionAngle() {
+  // Keep the signed turns: left is −90°, including when the direction wraps.
+  // A normalized 270° would visually turn right three times instead of left once.
+  return (state.simulation?.steps.slice(1, state.currentStep + 1) || []).reduce((angle, step) =>
+    angle + (step.command === 'left' ? -90 : step.command === 'right' ? 90 : 0), currentMission().start.dir * 90);
+}
+
+function getHints() {
+  const mission = currentMission();
+  const firstError = state.simulation?.steps.find(step => step.robot.invalid);
+  if (!firstError || state.status === 'success') return mission.hints;
+  if (firstError.command === 'pickup') return [
+    'Amati posisi robot saat kartu “Ambil buku” dibaca. Apakah sudah di petak buku?',
+    'Bandingkan arah dan banyak langkah sebelum mengambil buku.',
+    'Perbaiki bagian sebelum “Ambil buku” supaya robot tiba di buku terlebih dahulu.',
+  ];
+  if (firstError.command === 'deliver') return [
+    'Periksa: apakah robot membawa buku dan sudah berada di perpustakaan?',
+    firstError.robot.carrying ? 'Buku sudah dibawa. Amati belokan dan jarak ke perpustakaan.' : 'Periksa posisi robot ketika kartu “Ambil buku” dijalankan.',
+    'Coba “Satu langkah” dan cari kartu pertama yang membuat robot menjauh dari tujuan.',
+  ];
+  return [
+    'Robot sampai ke tepi peta. Perhatikan langkah pertama yang tidak bisa maju.',
+    'Bandingkan arah robot dengan petak tujuan. Periksa juga angka pada kartu ulang.',
+    'Gunakan “Satu langkah” untuk menghitung jarak sebelum belok atau berhenti.',
+  ];
 }
 
 function renderProgram() {
@@ -266,7 +353,7 @@ function renderProgram() {
     return `<div class="command-card tone-${item.tone}" data-command-index="${index}">
       <span class="command-index">${index + 1}</span>
       <span class="command-glyph">${command === 'forward' ? icon('forward', 19) : command === 'left' ? icon('turnLeft', 19) : command === 'right' ? icon('turnRight', 19) : command === 'pickup' ? icon('book', 19) : command === 'deliver' ? icon('flag', 19) : icon('repeat', 19)}</span>
-      <span class="command-copy"><strong>${item.label}</strong><small>${item.kind === 'loop' ? 'jalankan gerak berulang' : item.kind === 'turn' ? 'ubah arah robot' : item.kind === 'book' ? 'aksi buku' : 'gerak robot'}</small></span>
+      <span class="command-copy"><strong>${item.label}</strong><small>${item.kind === 'loop' ? 'jalankan gerak berulang' : item.kind === 'turn' ? 'ubah arah robot' : item.kind === 'book' ? 'aksi buku' : 'gerak robot'}</small><span class="command-progress" hidden></span></span>
       <span class="command-controls">
         <button class="icon-button" data-action="move-up" data-index="${index}" ${index === 0 ? 'disabled' : ''} aria-label="Naikkan ${item.label}">${icon('arrowUp', 17)}</button>
         <button class="icon-button" data-action="move-down" data-index="${index}" ${index === state.program.length - 1 ? 'disabled' : ''} aria-label="Turunkan ${item.label}">${icon('arrowDown', 17)}</button>
@@ -285,14 +372,17 @@ function resultPanel() {
   if (state.status === 'success') return `<div class="result-card result-success" role="status"><div class="result-icon">${icon('check', 25)}</div><div><strong>Kasus terpecahkan!</strong><p>Robot berhasil mengantar buku. Kamu membaca program dengan teliti.</p></div><button class="button button-primary" data-action="next-mission">${state.missionIndex === MISSIONS.length - 1 ? 'Ulangi tantangan' : 'Misi berikutnya'} ${icon('arrowDown', 16)}</button></div>`;
   if (state.status === 'error') return `<div class="result-card result-error" role="alert"><div class="result-icon">!</div><div><strong>Belum tepat, detektif.</strong><p>${state.simulation.error}</p></div><button class="button button-secondary" data-action="run-again">Coba lagi ${icon('rotate', 17)}</button></div>`;
   if (state.status === 'running') return `<div class="result-card result-running" role="status"><div class="spinner"></div><div><strong>Robot sedang bekerja…</strong><p>Amati langkahnya satu per satu.</p></div></div>`;
+  if (state.status === 'paused') return `<div class="result-card result-idle" role="status"><div class="result-icon">${icon('pause', 22)}</div><div><strong>Waktunya mengamati.</strong><p>Tekan “Satu langkah” untuk membaca kartu berikutnya, atau lanjutkan program.</p></div></div>`;
   return `<div class="result-card result-idle" role="status"><div class="result-icon">?</div><div><strong>Siap menyelidiki?</strong><p>Jalankan kartu dari atas ke bawah, lalu amati gerak robot.</p></div></div>`;
 }
 
 function render() {
+  const focused = document.activeElement?.dataset;
+  const focusKey = focused?.action ? { action: focused.action, index: focused.index, command: focused.command } : null;
   const mission = currentMission();
   const robot = state.simulation?.steps?.[state.currentStep]?.robot || { ...mission.start, carrying: false, delivered: false, dir: mission.start.dir };
   const totalDone = state.completed.filter(Boolean).length;
-  const hint = mission.hints[Math.max(0, state.hintsUsed - 1)];
+  const hint = getHints()[Math.max(0, state.hintsUsed - 1)];
   document.querySelector('#app').innerHTML = `<div class="app-shell">
     <header class="topbar">
       <a class="brand" href="./" aria-label="Detektif Bug, halaman utama"><span class="brand-mark">${icon('magnify', 26)}</span><span><strong>Detektif Bug</strong><small>belajar dari kesalahan</small></span></a>
@@ -307,23 +397,33 @@ function render() {
 
       <section class="learning-strip" aria-label="Panduan singkat"><div class="strip-step"><span class="step-badge">1</span><div><strong>Baca</strong><small>dari atas ke bawah</small></div></div><span class="strip-line"></span><div class="strip-step"><span class="step-badge">2</span><div><strong>Jalankan</strong><small>lihat geraknya</small></div></div><span class="strip-line"></span><div class="strip-step"><span class="step-badge">3</span><div><strong>Perbaiki</strong><small>satu kartu dulu</small></div></div></section>
 
+      ${renderSettings()}
+
       <div class="workspace-grid">
         <aside class="mission-sidebar panel"><div class="panel-heading"><div><span class="overline">PAPAN KASUS</span><h2>Pilih misi</h2></div><span class="case-count">${totalDone}/${MISSIONS.length}</span></div><div class="mission-list">${renderMissionPicker()}</div><div class="sidebar-note"><span class="note-icon">${icon('lightbulb', 18)}</span><p>Setiap misi mengajarkan pola baru. Tidak apa-apa mencoba lagi.</p></div></aside>
 
         <section class="mission-main">
           <div class="mission-heading"><div><span class="overline">MISI ${String(mission.id).padStart(2, '0')} · ${mission.difficulty.toUpperCase()}</span><h2>${mission.title}</h2><p>${mission.story}</p></div><span class="concept-chip">${mission.concept}</span></div>
-          <div class="simulation-card panel"><div class="simulation-top"><div><span class="overline">SIMULASI LANGKAH</span><h3>Antar buku ke perpustakaan</h3></div><span class="direction-badge">Hadap: ${directionArrow(robot.dir)} ${dirName(robot.dir)}</span></div>${renderMap(mission, robot)}<div class="step-readout" aria-live="polite"><span class="step-dot"></span><strong>${state.status === 'running' ? `Langkah ${Math.min(state.currentStep, state.simulation?.steps?.length - 1 || 0)} sedang diamati` : state.status === 'success' ? 'Semua langkah tepat' : state.status === 'error' ? `Robot berhenti di langkah ${state.currentStep}` : 'Robot menunggu perintah'}</strong><span class="step-caption">${robot.carrying ? 'robot membawa buku' : robot.delivered ? 'buku sudah diantar' : 'amati posisi robot'}</span></div></div>
+          <div class="simulation-card panel" tabindex="-1" aria-label="Simulasi robot"><div class="simulation-top"><div><span class="overline">SIMULASI LANGKAH</span><h3>Antar buku ke perpustakaan</h3></div><span class="direction-badge">Hadap: ${directionArrow(robot.dir)} ${dirName(robot.dir)}</span></div>${renderMap(mission, robot)}<div class="step-readout" aria-live="polite" aria-atomic="true"><span class="step-dot"></span><strong>${stepDescription()}</strong><span class="step-caption">${robotCaption(robot)}</span></div><div class="simulation-controls"><button class="button button-ghost" data-action="step">${icon('step', 18)} Satu langkah</button><button class="button button-ghost" data-action="pause" ${state.status === 'running' ? '' : 'disabled'}>${icon('pause', 18)} Jeda</button><button class="button button-ghost read-mission" data-action="read-mission" ${preferences.voice && state.status !== 'running' ? '' : 'disabled'}>${icon('voice', 18)} Bacakan misi</button><span class="playback-count">${state.currentStep} / ${state.simulation ? state.simulation.steps.length - 1 : '—'} langkah</span></div><div id="simulation-result">${resultPanel()}</div></div>
 
-          <div class="builder-card panel"><div class="builder-top"><div><span class="overline">PROGRAM ROBOT</span><h3>Susun kartu perintah</h3></div><span class="builder-tip">${icon('lightbulb', 17)} klik kartu untuk menambah</span></div><div class="program-list">${renderProgram()}</div><div class="palette"><span class="palette-label">Tambah kartu</span><div class="palette-list">${renderPalette()}</div></div><div class="builder-actions"><button class="button button-primary button-large" data-action="run" ${state.status === 'running' ? 'disabled' : ''}>${icon('play', 18)} Jalankan program</button><button class="button button-ghost" data-action="hint" ${state.hintsUsed >= mission.hints.length || state.status === 'running' ? 'disabled' : ''}>${icon('lightbulb', 18)} ${state.hintsUsed ? `Petunjuk ${state.hintsUsed}/${mission.hints.length}` : 'Lihat langkah berikutnya'}</button><button class="button button-ghost" data-action="reset">${icon('rotate', 18)} Ulangi</button></div>${state.hintsUsed > 0 ? `<div class="hint-box" role="status"><div class="hint-symbol">${icon('lightbulb', 19)}</div><div><strong>Petunjuk ${state.hintsUsed}</strong><p>${hint}</p></div></div>` : ''}${resultPanel()}</div>
+          <div class="builder-card panel"><div class="builder-top"><div><span class="overline">PROGRAM ROBOT</span><h3>Susun kartu perintah</h3></div><span class="builder-tip">${icon('lightbulb', 17)} klik kartu untuk menambah</span></div><div class="program-list">${renderProgram()}</div><div class="palette"><span class="palette-label">Tambah kartu</span><div class="palette-list">${renderPalette()}</div></div><div class="builder-actions"><button class="button button-primary button-large" data-action="run" ${state.status === 'running' ? 'disabled' : ''}>${icon('play', 18)} ${state.status === 'paused' ? 'Lanjutkan program' : 'Jalankan program'}</button><button class="button button-ghost" data-action="hint" ${state.hintsUsed >= mission.hints.length || state.status === 'running' ? 'disabled' : ''}>${icon('lightbulb', 18)} ${state.hintsUsed ? `Petunjuk ${state.hintsUsed}/${mission.hints.length}` : 'Minta petunjuk'}</button><button class="button button-ghost" data-action="reset">${icon('rotate', 18)} Ulangi</button></div><div id="hint-region">${state.hintsUsed > 0 ? `<div class="hint-box" role="status"><div class="hint-symbol">${icon('lightbulb', 19)}</div><div><strong>Petunjuk ${state.hintsUsed}</strong><p>${hint}</p></div></div>` : ''}</div></div>
         </section>
       </div>
     </main>
     <footer class="footer"><span>Detektif Bug · belajar coding lewat mencoba</span><span class="footer-meta">Progres tersimpan di perangkat ini saja</span></footer>
   </div>`;
+  applyMotionPreference();
+  updatePlayback();
+  if (focusKey) {
+    const button = Array.from(document.querySelectorAll('[data-action]')).find(el =>
+      el.dataset.action === focusKey.action && el.dataset.index === focusKey.index && el.dataset.command === focusKey.command);
+    if (button && !button.disabled) button.focus({ preventScroll: true });
+  }
 }
 
 function selectMission(index) {
   if (!isMissionUnlocked(index)) return;
+  cancelPlayback();
   state.missionIndex = index;
   state.program = [...MISSIONS[index].initial];
   state.status = 'idle'; state.hintsUsed = 0; state.currentStep = 0; state.simulation = null;
@@ -333,44 +433,172 @@ function selectMission(index) {
 function moveCommand(index, direction) {
   const target = index + direction;
   if (target < 0 || target >= state.program.length) return;
+  cancelPlayback();
   [state.program[index], state.program[target]] = [state.program[target], state.program[index]];
   state.status = 'idle'; state.simulation = null; state.currentStep = 0; render();
 }
 
 function resetMission() {
+  cancelPlayback();
   state.program = [...currentMission().initial];
   state.status = 'idle'; state.hintsUsed = 0; state.currentStep = 0; state.simulation = null; render();
 }
 
 function addCommand(command) {
+  if (!COMMANDS[command]) return;
+  cancelPlayback();
   state.program.push(command); state.status = 'idle'; state.simulation = null; state.currentStep = 0; render();
 }
 
 function removeCommand(index) {
+  cancelPlayback();
   state.program.splice(index, 1); state.status = 'idle'; state.simulation = null; state.currentStep = 0; render();
+}
+
+function cancelPlayback() {
+  clearTimeout(playbackTimer);
+  playbackTimer = null;
+  runVersion += 1;
+  feedback.stop();
+}
+
+function beginSimulation() {
+  cancelPlayback();
+  state.simulation = simulate(state.program, currentMission());
+  state.status = 'paused'; state.currentStep = 0;
+  render();
+}
+
+function schedulePlayback(callback, delay) {
+  clearTimeout(playbackTimer);
+  const version = runVersion;
+  playbackTimer = window.setTimeout(() => {
+    playbackTimer = null;
+    if (version === runVersion) callback();
+  }, delay);
 }
 
 function runProgram() {
   if (state.status === 'running') return;
-  state.simulation = simulate(state.program, currentMission());
-  state.status = 'running'; state.currentStep = 0; render();
-  const totalSteps = state.simulation.steps.length - 1;
-  let step = 0;
+  if (state.status !== 'paused' || !state.simulation) beginSimulation();
+  state.status = 'running';
+  updatePlayback();
+  const board = document.querySelector('.simulation-card');
+  board.focus({ preventScroll: true });
+  board.scrollIntoView({ block: 'start', behavior: calmMotion() ? 'auto' : 'smooth' });
+  if (state.currentStep >= state.simulation.steps.length - 1) { finishSimulation(); return; }
   const tick = () => {
     if (state.status !== 'running') return;
-    step += 1; state.currentStep = step; render();
-    if (step < totalSteps) window.setTimeout(tick, 560);
-    else window.setTimeout(finishSimulation, 420);
+    advanceStep();
+    if (state.currentStep < state.simulation.steps.length - 1) {
+      schedulePlayback(tick, preferences.pace === 'slow' || preferences.voice ? 1700 : 950);
+    } else schedulePlayback(finishSimulation, calmMotion() ? 150 : 480);
   };
-  if (totalSteps === 0) finishSimulation(); else window.setTimeout(tick, 350);
+  schedulePlayback(tick, 300);
+}
+
+function pauseProgram() {
+  if (state.status !== 'running') return;
+  cancelPlayback();
+  state.status = 'paused';
+  updatePlayback();
+}
+
+function stepProgram() {
+  if (state.status === 'running') pauseProgram();
+  if (!state.simulation || !['paused', 'running'].includes(state.status)) beginSimulation();
+  cancelPlayback();
+  if (state.currentStep >= state.simulation.steps.length - 1) { finishSimulation(); return; }
+  state.status = 'paused';
+  advanceStep();
+  if (state.currentStep === state.simulation.steps.length - 1) {
+    schedulePlayback(finishSimulation, calmMotion() ? 150 : 480);
+  }
+}
+
+function advanceStep() {
+  if (!state.simulation || state.currentStep >= state.simulation.steps.length - 1) return;
+  state.currentStep += 1;
+  const step = state.simulation.steps[state.currentStep];
+  const previous = state.simulation.steps[state.currentStep - 1].robot;
+  const newError = step.robot.invalid && !previous.invalid;
+  updatePlayback();
+  const cue = newError ? 'error' : step.command.startsWith('loop') || step.command === 'forward' ? 'move'
+    : ['left', 'right'].includes(step.command) ? 'turn' : step.command;
+  feedback.play(cue);
+  feedback.speak(newError ? 'Amati langkah ini. Ada yang belum tepat.' : step.repeatTotal > 1
+    ? `Maju. Ulangan ${step.repeatIndex} dari ${step.repeatTotal}.` : step.label);
+  const token = document.querySelector('.robot-token');
+  if (token && !calmMotion()) {
+    token.classList.remove('is-picking', 'is-bumping', 'is-delivering');
+    void token.offsetWidth;
+    if (newError) token.classList.add('is-bumping');
+    else if (step.command === 'pickup' && step.robot.carrying) token.classList.add('is-picking');
+    else if (step.command === 'deliver' && step.robot.delivered) token.classList.add('is-delivering');
+  }
+}
+
+function updatePlayback() {
+  const robot = state.simulation?.steps[state.currentStep]?.robot || { ...currentMission().start, carrying: false, delivered: false };
+  const step = state.simulation?.steps[state.currentStep];
+  const running = state.status === 'running';
+  const position = document.querySelector('.robot-position');
+  if (!position) return;
+  position.style.setProperty('--robot-x', robot.x);
+  position.style.setProperty('--robot-y', robot.y);
+  document.querySelector('.robot-direction').style.transform = `rotate(${directionAngle()}deg)`;
+  document.querySelector('.carried-book').hidden = !robot.carrying || robot.delivered;
+  document.querySelector('.book-object').hidden = robot.carrying || robot.delivered;
+  document.querySelector('.has-target').classList.toggle('is-delivered', Boolean(robot.delivered));
+  document.querySelector('.map-grid').setAttribute('aria-label', `Robot di kolom ${robot.x + 1}, baris ${robot.y + 1}, menghadap ${dirName(robot.dir)}. ${robotCaption(robot)}.`);
+  document.querySelector('.direction-badge').textContent = `Hadap: ${directionArrow(robot.dir)} ${dirName(robot.dir)}`;
+  document.querySelector('.step-readout strong').textContent = stepDescription();
+  document.querySelector('.step-caption').textContent = robotCaption(robot);
+  document.querySelector('.playback-count').textContent = `${state.currentStep} / ${state.simulation ? state.simulation.steps.length - 1 : '—'} langkah`;
+  document.querySelector('[data-action="run"]').disabled = running;
+  document.querySelector('[data-action="run"]').innerHTML = `${icon('play', 18)} ${state.status === 'paused' ? 'Lanjutkan program' : 'Jalankan program'}`;
+  document.querySelector('[data-action="pause"]').disabled = !running;
+  document.querySelector('[data-action="hint"]').disabled = running || state.hintsUsed >= currentMission().hints.length;
+  document.querySelector('[data-action="read-mission"]').disabled = running || !preferences.voice;
+  for (const button of document.querySelectorAll('.command-controls button, .palette-button')) {
+    const index = Number(button.dataset.index);
+    button.disabled = running || (button.dataset.action === 'move-up' && index === 0)
+      || (button.dataset.action === 'move-down' && index === state.program.length - 1);
+  }
+  const visited = new Set(state.simulation?.steps.slice(0, state.currentStep + 1).map(s => `${s.robot.x},${s.robot.y}`));
+  for (const cell of document.querySelectorAll('.map-cell')) {
+    cell.classList.toggle('is-visited', visited.has(`${cell.dataset.x},${cell.dataset.y}`));
+  }
+  for (const card of document.querySelectorAll('.command-card')) {
+    const active = Boolean(step && state.currentStep > 0 && Number(card.dataset.commandIndex) === step.programIndex);
+    card.classList.toggle('is-current', active);
+    if (active) card.setAttribute('aria-current', 'step'); else card.removeAttribute('aria-current');
+    const progress = card.querySelector('.command-progress');
+    progress.hidden = !active;
+    if (active) progress.textContent = step.repeatTotal > 1 ? `Ulangan ${step.repeatIndex} dari ${step.repeatTotal}` : 'Kartu sedang diamati';
+  }
+  document.querySelector('#simulation-result').innerHTML = resultPanel();
+}
+
+function celebrate() {
+  if (calmMotion()) return;
+  const layer = document.querySelector('.celebration-layer');
+  layer.innerHTML = Array.from({ length: 16 }, (_, i) => `<span class="confetti ${i % 3 === 0 ? 'confetti-star' : ''}" style="--scatter:${(i - 7.5) * 12}px;--rise:${-55 - (i % 4) * 18}px;--spin:${i % 2 ? 220 : -180}deg;--delay:${(i % 4) * 40}ms;--confetti-color:${['#facc15', '#ec4899', '#2563eb', '#14b88a'][i % 4]}">${i % 3 === 0 ? icon('star', 15) : ''}</span>`).join('');
+  layer.querySelectorAll('.confetti').forEach(piece => piece.addEventListener('animationend', () => piece.remove(), { once: true }));
 }
 
 function finishSimulation() {
-  if (!state.simulation) return;
+  if (!state.simulation || !['running', 'paused'].includes(state.status)) return;
+  clearTimeout(playbackTimer); playbackTimer = null;
   state.status = state.simulation.success ? 'success' : 'error';
   state.currentStep = state.simulation.steps.length - 1;
   if (state.simulation.success) { state.completed[state.missionIndex] = true; saveProgress(); }
   render();
+  if (state.simulation.success) {
+    celebrate(); feedback.play('success'); feedback.speak('Kasus terpecahkan! Buku sudah diantar.');
+  } else {
+    feedback.play('error'); feedback.speak('Belum tepat. Mari amati langkahnya dan coba lagi.');
+  }
 }
 
 function nextMission() {
@@ -383,16 +611,45 @@ if (typeof document !== 'undefined') {
     const button = event.target.closest('[data-action]');
     if (!button || button.disabled) return;
     const action = button.dataset.action;
+    if (action.startsWith('toggle-')) {
+      if (action === 'toggle-sound') preferences.sound = !preferences.sound;
+      if (action === 'toggle-voice') preferences.voice = !preferences.voice;
+      if (action === 'toggle-calm') preferences.calm = !preferences.calm;
+      savePreferences();
+      render();
+      if (action === 'toggle-sound' && preferences.sound) feedback.unlock().then(ok => { if (ok) feedback.play('click'); });
+      if (action === 'toggle-voice' && preferences.voice) feedback.speak('Halo detektif! Mari bantu robot mengantar buku.');
+      return;
+    }
+    feedback.unlock();
     if (action === 'select-mission') selectMission(Number(button.dataset.index));
     if (action === 'add-command') addCommand(button.dataset.command);
     if (action === 'move-up') moveCommand(Number(button.dataset.index), -1);
     if (action === 'move-down') moveCommand(Number(button.dataset.index), 1);
     if (action === 'remove-command') removeCommand(Number(button.dataset.index));
     if (action === 'run' || action === 'run-again') runProgram();
-    if (action === 'reset') resetMission();
-    if (action === 'hint') { state.hintsUsed += 1; render(); }
+    if (action === 'reset') { resetMission(); feedback.play('reset'); }
+    if (action === 'pause') pauseProgram();
+    if (action === 'step') stepProgram();
+    if (action === 'read-mission') feedback.speak(currentMission().story);
+    if (action === 'hint') { state.hintsUsed += 1; render(); feedback.play('hint'); feedback.speak(getHints()[state.hintsUsed - 1]); }
     if (action === 'next-mission') nextMission();
+    if (['select-mission', 'add-command', 'move-up', 'move-down', 'remove-command', 'next-mission'].includes(action)) feedback.play('click');
   });
+
+  document.addEventListener('input', event => {
+    if (event.target.id !== 'sound-volume') return;
+    preferences.volume = Number(event.target.value) / 100;
+    savePreferences();
+    document.querySelector('output[for="sound-volume"]').textContent = `${event.target.value}%`;
+  });
+  document.addEventListener('change', event => {
+    if (event.target.id !== 'playback-pace') return;
+    preferences.pace = event.target.value === 'slow' ? 'slow' : 'normal';
+    savePreferences();
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) pauseProgram(); });
+  window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', () => { applyMotionPreference(); render(); });
 
   render();
 }

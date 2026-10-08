@@ -4,7 +4,9 @@
 
 Dokumen ini hanya memuat prompt yang benar-benar dikirim dalam percakapan. Prompt terkurasi dibatasi maksimal lima. Log mentah mencatat urutan awal sampai akhir untuk verifikasi, sesuai catatan pada panduan lomba.
 
-Panduan PPT menggunakan dua istilah sekaligus: “jurnal prompt terkurasi (maks 5 prompt)” dan “log prompt mentah awal–akhir”. Keduanya dipisahkan di bawah. Jika panitia memaknai jumlah prompt secara berbeda, minta klarifikasi sebelum submit.
+Slide 5 PPT menyebut “jurnal prompt terkurasi (maks 5 prompt)”, tetapi slide 12 menyebut “Jurnal prompt terkurasi (5 prompt)”. Klarifikasi yang diperlukan: **maksimal lima atau wajib tepat lima?** Log mentah awal–akhir tetap dilampirkan terpisah. Jangan menciptakan prompt untuk memenuhi angka lima.
+
+Entri awal di bawah diwarisi dari ZIP peserta. Klaim hasil sesi lama belum diverifikasi ulang secara keseluruhan; hanya pemeriksaan pada `docs/VALIDATION.md` yang menjadi bukti sesi penyempurnaan ini. Log lengkap sesi yang tersedia ada di [SESSION_PROMPTS.md](SESSION_PROMPTS.md). Tabel ringkasan di bawah bukan pengganti teks prompt lengkap. Riwayat GPT-5.6 Luna yang tidak dilampirkan masih perlu diekspor peserta untuk membuktikan log awal–akhir.
 
 ## Jurnal terkurasi
 
@@ -82,15 +84,24 @@ Mulai dari langkah pertama, kemudian lanjutkan sesuai urutan.
 
 **Hasil nyata:** PPT dibaca; `docs/PRD.md`, `docs/AI_GUIDE.md`, website static, jurnal, panduan uji, dan konfigurasi deployment dibuat; build, smoke test mesin simulasi, dan pemeriksaan browser lokal dijalankan.
 
+### Prompt 2 — Finishing suara, efek, dan animasi
+
+**Waktu:** 8 Oktober 2026, Asia/Jakarta; jam kirim mengikuti riwayat chat.
+
+**Prompt lengkap:** lihat [teks lengkap permintaan pengguna](SESSION_PROMPTS.md#pengguna--penyempurnaan-kode-yang-dilampirkan). Permintaan aktif terdapat pada kalimat terakhir; prompt pembangunan awal dikutip pengguna sebagai konteks.
+
+**Keputusan:** lanjutkan HTML/CSS/JavaScript yang diberikan; efek oscillator tanpa API berbayar; bacaan suara opsional; kartu aktif dan hitungan ulang mengikuti mesin simulasi; gerak tenang dan volume tersedia.
+
+**Debugging nyata:** timer percobaan lama bisa mengendalikan percobaan baru; render seluruh halaman tiap langkah menghilangkan transisi robot; caption sukses salah; petunjuk misi 6 menyebut jarak keliru; layout mobile melebar karena minimum track grid. Solusi dan pemeriksaan tercatat di `VALIDATION.md`.
+
 ## Prompt berikutnya
 
-Tambahkan maksimal empat entri berikut hanya setelah prompt tersebut benar-benar dikirim dan hasilnya benar-benar dikerjakan:
+Tambahkan maksimal tiga entri lagi hanya setelah prompt tersebut benar-benar dikirim dan hasilnya benar-benar dikerjakan. Kategori bukan alasan untuk mengarang instruksi yang belum digunakan:
 
 | Nomor | Kategori panduan | Waktu | Prompt persis | Hasil terverifikasi |
 | --- | --- | --- | --- | --- |
-| 2 | Debugging | Belum digunakan | Belum digunakan | — |
 | 3 | Audit & optimasi | Belum digunakan | Belum digunakan | — |
-| 4 | Finishing | Belum digunakan | Belum digunakan | — |
+| 4 | Debugging | Belum digunakan | Belum digunakan | — |
 | 5 | Bebas | Belum digunakan | Belum digunakan | — |
 
 ## Log mentah awal–akhir
@@ -98,6 +109,7 @@ Tambahkan maksimal empat entri berikut hanya setelah prompt tersebut benar-benar
 | Urutan | Waktu | Sumber | Ringkasan faktual | Bukti |
 | --- | --- | --- | --- | --- |
 | 1 | 8 Oktober 2026 | Pengguna | Prompt lengkap di atas. | `docs/PRD.md`, `docs/AI_GUIDE.md`, source code, hasil build dan smoke test. |
+| 2 | 8 Oktober 2026 | Pengguna | Penyempurnaan kode lampiran dengan suara, efek, animasi. | Teks lengkap di `SESSION_PROMPTS.md`; hasil sesi di `VALIDATION.md`. |
 
 Jangan mengisi baris dengan prompt rekaan. Jika prompt tambahan dikirim, salin teksnya apa adanya dan catat hasil yang benar-benar dapat diperiksa.
 

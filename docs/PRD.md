@@ -1,5 +1,19 @@
 # PRD — Detektif Bug
 
+## Pengembangan suara dan animasi — 8 Oktober 2026
+
+Tujuan perubahan: memperjelas hubungan kartu dengan gerak robot sekaligus membuat percobaan terasa menyenangkan. Manfaat belajar tetap hipotesis, belum hasil uji pengguna.
+
+- Bunyi berbeda untuk maju, belok, ambil buku, antar buku, petunjuk, dan coba ulang. Kesalahan mendapat bunyi lembut, tanpa hukuman.
+- Suara efek dan bacaan langkah dapat dinyalakan terpisah; awalnya mati. Volume efek dan preferensi disimpan pada perangkat.
+- Robot berpindah mulus antarp petak; kartu yang sedang berjalan diberi tanda dan kartu ulang menampilkan hitungan nyata, misalnya 2 dari 3.
+- Buku tampak dibawa lalu diantar; perayaan singkat muncul hanya setelah simulasi menyatakan berhasil.
+- Tombol “Satu langkah” terpisah dari petunjuk untuk mengamati satu perintah atomik; tombol Jeda memberi waktu mengamati.
+- Gerak tenang menghentikan animasi dekoratif serta perayaan bergerak, tanpa menghilangkan penjelasan langkah.
+- Tetap berjalan tanpa audio atau suara Indonesia. Seluruh hasil memiliki teks.
+
+Kriteria pemeriksaan: keenam solusi benar dan program awal salah, hitungan ulang sesuai simulasi, reset/ubah misi tidak meninggalkan timer aktif, preferensi bertahan setelah reload, tidak ada scroll mendatar pada 375/768/1024/1440px, dan build statis memuat modul tambahan.
+
 ## Ringkasan satu kalimat
 
 Detektif Bug adalah website belajar coding untuk anak kelas 3–5 SD: anak membantu robot mengantar buku ke perpustakaan dengan menemukan dan memperbaiki kesalahan pada kartu perintah.

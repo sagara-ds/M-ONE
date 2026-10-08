@@ -1,0 +1,343 @@
+{
+  "checkedAt": "2026-10-08T12:15:53.719Z",
+  "target": "http://127.0.0.1:4173",
+  "browser": "Chromium headless",
+  "method": "UI clicks and native Web Audio instrumentation; speech fallback uses injected English-only voice availability",
+  "limits": [
+    "Sound was scheduled in native Web Audio but was not listened to by a person.",
+    "No child or teacher user study was performed.",
+    "Speech quality depends on real device voices."
+  ],
+  "passed": 30,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Awal: suara mati, misi berikutnya terkunci",
+      "passed": true,
+      "milliseconds": 61,
+      "evidence": {
+        "lockedMissions": 5,
+        "sound": false,
+        "voice": false
+      }
+    },
+    {
+      "name": "Kartu dapat dinaikkan, diturunkan, dihapus, dan ditambah melalui klik",
+      "passed": true,
+      "milliseconds": 556
+    },
+    {
+      "name": "Misi 1: program awal gagal, tiga petunjuk, ulangi",
+      "passed": true,
+      "milliseconds": 5608,
+      "evidence": {
+        "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
+        "hints": [
+          "Amati posisi robot saat kartu “Ambil buku” dibaca. Apakah sudah di petak buku?",
+          "Bandingkan arah dan banyak langkah sebelum mengambil buku.",
+          "Perbaiki bagian sebelum “Ambil buku” supaya robot tiba di buku terlebih dahulu."
+        ]
+      }
+    },
+    {
+      "name": "Misi 1: solusi melalui klik dan tiap langkah robot cocok",
+      "passed": true,
+      "milliseconds": 2252,
+      "evidence": {
+        "cards": 5,
+        "simulatedSteps": 5
+      }
+    },
+    {
+      "name": "Misi 2: program awal gagal, tiga petunjuk, ulangi",
+      "passed": true,
+      "milliseconds": 6595,
+      "evidence": {
+        "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
+        "hints": [
+          "Robot sampai ke tepi peta. Perhatikan langkah pertama yang tidak bisa maju.",
+          "Bandingkan arah robot dengan petak tujuan. Periksa juga angka pada kartu ulang.",
+          "Gunakan “Satu langkah” untuk menghitung jarak sebelum belok atau berhenti."
+        ]
+      }
+    },
+    {
+      "name": "Misi 2: solusi melalui klik dan tiap langkah robot cocok",
+      "passed": true,
+      "milliseconds": 1907,
+      "evidence": {
+        "cards": 6,
+        "simulatedSteps": 6
+      }
+    },
+    {
+      "name": "Misi 3: program awal gagal, tiga petunjuk, ulangi",
+      "passed": true,
+      "milliseconds": 5644,
+      "evidence": {
+        "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
+        "hints": [
+          "Amati posisi robot saat kartu “Ambil buku” dibaca. Apakah sudah di petak buku?",
+          "Bandingkan arah dan banyak langkah sebelum mengambil buku.",
+          "Perbaiki bagian sebelum “Ambil buku” supaya robot tiba di buku terlebih dahulu."
+        ]
+      }
+    },
+    {
+      "name": "Misi 3: solusi melalui klik dan tiap langkah robot cocok",
+      "passed": true,
+      "milliseconds": 1662,
+      "evidence": {
+        "cards": 4,
+        "simulatedSteps": 6
+      }
+    },
+    {
+      "name": "Misi 4: program awal gagal, tiga petunjuk, ulangi",
+      "passed": true,
+      "milliseconds": 9559,
+      "evidence": {
+        "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
+        "hints": [
+          "Robot sampai ke tepi peta. Perhatikan langkah pertama yang tidak bisa maju.",
+          "Bandingkan arah robot dengan petak tujuan. Periksa juga angka pada kartu ulang.",
+          "Gunakan “Satu langkah” untuk menghitung jarak sebelum belok atau berhenti."
+        ]
+      }
+    },
+    {
+      "name": "Misi 4: solusi melalui klik dan tiap langkah robot cocok",
+      "passed": true,
+      "milliseconds": 2044,
+      "evidence": {
+        "cards": 6,
+        "simulatedSteps": 9
+      }
+    },
+    {
+      "name": "Misi 5: program awal gagal, tiga petunjuk, ulangi",
+      "passed": true,
+      "milliseconds": 6533,
+      "evidence": {
+        "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
+        "hints": [
+          "Amati posisi robot saat kartu “Ambil buku” dibaca. Apakah sudah di petak buku?",
+          "Bandingkan arah dan banyak langkah sebelum mengambil buku.",
+          "Perbaiki bagian sebelum “Ambil buku” supaya robot tiba di buku terlebih dahulu."
+        ]
+      }
+    },
+    {
+      "name": "Misi 5: solusi melalui klik dan tiap langkah robot cocok",
+      "passed": true,
+      "milliseconds": 2130,
+      "evidence": {
+        "cards": 6,
+        "simulatedSteps": 7
+      }
+    },
+    {
+      "name": "Misi 6: program awal gagal, tiga petunjuk, ulangi",
+      "passed": true,
+      "milliseconds": 11055,
+      "evidence": {
+        "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
+        "hints": [
+          "Periksa: apakah robot membawa buku dan sudah berada di perpustakaan?",
+          "Buku sudah dibawa. Amati belokan dan jarak ke perpustakaan.",
+          "Coba “Satu langkah” dan cari kartu pertama yang membuat robot menjauh dari tujuan."
+        ]
+      }
+    },
+    {
+      "name": "Misi 6: solusi melalui klik dan tiap langkah robot cocok",
+      "passed": true,
+      "milliseconds": 2240,
+      "evidence": {
+        "cards": 7,
+        "simulatedSteps": 10
+      }
+    },
+    {
+      "name": "Enam misi selesai dan progres bertahan setelah reload",
+      "passed": true,
+      "milliseconds": 148,
+      "evidence": {
+        "completed": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "name": "Pengulangan menampilkan 1/3, 2/3, 3/3 pada kartu yang sama",
+      "passed": true,
+      "milliseconds": 1527,
+      "evidence": [
+        "Kartu 1: Ulang 3×: maju · 1 dari 3",
+        "Kartu 1: Ulang 3×: maju · 2 dari 3",
+        "Kartu 1: Ulang 3×: maju · 3 dari 3"
+      ]
+    },
+    {
+      "name": "Animasi robot bergerak antarp petak dan arah kiri berputar negatif",
+      "passed": true,
+      "milliseconds": 2170,
+      "evidence": {
+        "leftDegrees": -90,
+        "rightDegrees": 0,
+        "displacement": 153.390625,
+        "cellPitch": 153.390625
+      }
+    },
+    {
+      "name": "Jeda menahan langkah dan lanjutkan meneruskan langkah berikutnya",
+      "passed": true,
+      "milliseconds": 2042,
+      "evidence": {
+        "pausedStep": 1,
+        "resumedStep": 2
+      }
+    },
+    {
+      "name": "Ulangi lalu segera jalankan membatalkan timer percobaan lama",
+      "passed": true,
+      "milliseconds": 3249,
+      "evidence": {
+        "cancelledInitialTick": true,
+        "cancelledOldSuccess": true
+      }
+    },
+    {
+      "name": "Tampilan 375px: tidak ada overflow mendatar",
+      "passed": true,
+      "milliseconds": 41,
+      "evidence": {
+        "viewport": 375,
+        "document": 375,
+        "body": 375
+      }
+    },
+    {
+      "name": "Tampilan 768px: tidak ada overflow mendatar",
+      "passed": true,
+      "milliseconds": 22,
+      "evidence": {
+        "viewport": 768,
+        "document": 768,
+        "body": 768
+      }
+    },
+    {
+      "name": "Tampilan 1024px: tidak ada overflow mendatar",
+      "passed": true,
+      "milliseconds": 24,
+      "evidence": {
+        "viewport": 1024,
+        "document": 1024,
+        "body": 1024
+      }
+    },
+    {
+      "name": "Tampilan 1440px: tidak ada overflow mendatar",
+      "passed": true,
+      "milliseconds": 20,
+      "evidence": {
+        "viewport": 1440,
+        "document": 1440,
+        "body": 1440
+      }
+    },
+    {
+      "name": "Ponsel 375px: jalankan membawa peta ke layar",
+      "passed": true,
+      "milliseconds": 980,
+      "evidence": {
+        "map": {
+          "top": 136.75,
+          "bottom": 360.75,
+          "viewport": 900
+        },
+        "focusedSimulationPanel": true
+      }
+    },
+    {
+      "name": "Web Audio asli: tidak otomatis, aktif setelah klik, menjadwalkan efek gerak",
+      "passed": true,
+      "milliseconds": 375,
+      "evidence": {
+        "contextStates": [
+          "running"
+        ],
+        "scheduledOscillators": 5,
+        "frequencies": [
+          740,
+          659,
+          440,
+          554
+        ],
+        "audibleListening": false
+      }
+    },
+    {
+      "name": "Suara dimatikan: tidak menjadwalkan oscillator baru",
+      "passed": true,
+      "milliseconds": 468,
+      "evidence": {
+        "oscillatorStartsBefore": 5,
+        "oscillatorStartsAfter": 5
+      }
+    },
+    {
+      "name": "Bacaan tanpa suara Indonesia: fallback teks tanpa membaca bahasa lain",
+      "passed": true,
+      "milliseconds": 108,
+      "evidence": {
+        "note": "Suara bahasa Indonesia belum tersedia. Ikuti teks petunjuk di layar.",
+        "speechCalls": 0,
+        "simulatedVoiceAvailability": "English only"
+      }
+    },
+    {
+      "name": "Volume, bacaan, gerak tenang, kecepatan tersimpan setelah reload",
+      "passed": true,
+      "milliseconds": 285,
+      "evidence": {
+        "saved": {
+          "sound": true,
+          "voice": true,
+          "volume": 0.25,
+          "calm": true,
+          "pace": "slow"
+        },
+        "noAudioContextOnReload": true
+      }
+    },
+    {
+      "name": "Reduced motion: gerak tenang, tanpa transisi dan confetti, misi tetap berfungsi",
+      "passed": true,
+      "milliseconds": 919,
+      "evidence": {
+        "transitionDuration": "0s",
+        "heroAnimation": "none",
+        "confetti": 0,
+        "missionSuccess": true
+      }
+    },
+    {
+      "name": "Browser tidak mencatat exception, console error, atau kegagalan request",
+      "passed": true,
+      "milliseconds": 0,
+      "evidence": {
+        "consoleErrors": 0,
+        "failedRequests": 0
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "requestFailures": []
+}

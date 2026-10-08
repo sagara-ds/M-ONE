@@ -1,0 +1,27 @@
+# Asal proyek dan riwayat
+
+Kode dasar berasal dari `Innovating-M-ONE.zip` yang diunggah peserta dalam sesi 8 Oktober 2026. Penyempurnaan suara/animasi dilakukan pada kode itu setelah membaca panduan PPT serta memperbarui PRD dan AI Guide. Tidak ada klaim bahwa kode dasar dibuat oleh sesi ini.
+
+SHA-256 ZIP asli: `7adadd08480612cb43cd3920ba84ccbfba632d27c3f72e8fbc7040d9d96d5454`.
+
+Metadata Git asli diperiksa baca-saja; empat commit tersimpan dalam `docs/provenance/original-history.bundle`. Perintah `git bundle verify` berhasil dan menyatakan bundle memiliki history lengkap. Bundle tidak memuat perubahan baru sesi ini.
+
+| Commit asli | Waktu author/committer (WIB) | Pesan |
+| --- | --- | --- |
+| `7e9328d1cc95accd70c0db5b2f7a19d6be139e28` | 8 Oktober 2026 18.38.20 | feat: build Detektif Bug learning experience |
+| `b810cd041af7d84084bafe0781ffafdc3b7f0b7c` | 8 Oktober 2026 18.39.02 | fix: support subpath hosting assets |
+| `01b9da5251a5b789af0ec846b912d0913560158f` | 8 Oktober 2026 18.40.44 | docs: keep prompt journal auditable |
+| `e3b6eae61037455379a2cb644e79ed6b030cc014` | 8 Oktober 2026 18.41.10 | docs: record complete initial prompt |
+
+Ini membuktikan metadata yang tersimpan dalam arsip, bukan verifikasi independen atas tanggal pembuatan repository GitHub atau keaslian seluruh proses. Simpan ZIP asli dan ekspor chat sebelumnya sebagai bukti tambahan.
+
+Checkout cloud `/workspace/M-ONE` sebelumnya memiliki branch `work` tanpa commit. Source diimpor tanpa menimpa `.git` cloud. Riwayat original bundle dan checkout cloud tetap terpisah. Untuk melanjutkan di komputer peserta, terapkan source hasil penyempurnaan pada checkout asli yang masih memiliki keempat commit tersebut, lalu commit perubahan dengan tanggal sebenarnya. Jangan menyalin `.git` cloud ke checkout asli.
+
+Jika hanya bundle yang tersedia, pulihkan **ke direktori baru** (bukan menimpa pekerjaan yang ada), lalu terapkan file source baru:
+
+```bash
+git clone docs/provenance/original-history.bundle /tmp/detektif-history-restored
+git -C /tmp/detektif-history-restored log --oneline
+```
+
+Tidak ada riwayat yang ditulis ulang, tanggal commit yang dimanipulasi, atau push/deployment yang dilakukan dalam sesi ini. Status public repository dan URL hosting harus dibuktikan sebelum submit. Ketentuan jumlah prompt terkurasi perlu klarifikasi: slide 5 maksimal lima, slide 12 lima. Batas pengumpulan 15 Oktober 2026 pukul 15.30 WIB.

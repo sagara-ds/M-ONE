@@ -2,7 +2,26 @@
 
 Dokumen ini menjadi acuan AI Agent untuk mengembangkan project setelah garis start lomba. Isinya adalah aturan kerja project, bukan bukti bahwa kode atau desain pernah dibuat sebelum garis start.
 
+## Acuan tambahan sebelum perubahan suara dan animasi (8 Oktober 2026)
+
+- Lanjutkan kode yang diberikan peserta dalam `Innovating-M-ONE.zip`; jangan membuat ulang produk atau mengubah riwayat Git arsip.
+- Gunakan Web Audio API untuk bunyi pendek buatan kode, tanpa unduhan audio atau API berbayar. Suara hanya diaktifkan melalui pilihan pengguna, dengan kontrol volume.
+- Bacaan suara memakai Web Speech API bila suara bahasa Indonesia tersedia pada perangkat. Teks langkah tetap menjadi sumber informasi utama; jangan menganggap suara selalu tersedia.
+- Animasi harus menunjukkan gerak dari petak lama ke petak baru, arah robot, kartu aktif, serta hitungan pengulangan. Perayaan singkat tidak menghalangi tombol atau peta.
+- Hormati `prefers-reduced-motion` dan sediakan pilihan gerak tenang. Jangan memakai efek berkedip atau musik latar otomatis.
+- Batalkan timer dan bacaan suara saat ulangi, berganti misi, atau mengubah program. Cegah callback simulasi lama memengaruhi percobaan baru.
+- Verifikasi program benar/salah, petunjuk, reset saat berjalan, suara aktif/mati, simpan preferensi, dan ukuran layar yang tercantum di bawah.
+- Log lengkap hanya mencatat prompt yang tersedia dalam sesi ini. Riwayat GPT sebelumnya adalah materi dari peserta dan tidak dinyatakan sudah diverifikasi.
+
 ## 1. Konteks project
+
+### Perbaikan preview lokal setelah laporan EADDRINUSE
+
+- Port 4173 yang sibuk merupakan konflik proses lokal, bukan kesalahan program belajar anak.
+- Skrip preview boleh mencoba port berikutnya untuk pilihan bawaan, maksimal 4173–4183. Jangan menghentikan proses lain.
+- PORT yang dipilih eksplisit harus dihormati: bila sibuk, tampilkan pesan singkat dengan exit bukan nol. Validasi nomor port sebelum membuka server.
+- Pertahankan kompatibilitas Node.js 18+ dan Windows; gunakan API bawaan tanpa paket tambahan. Periksa HTTP setelah startup, konflik port eksplisit, konfigurasi tidak valid, serta batas fallback.
+- Perbarui ZIP di branch downloads melalui commit baru; pertahankan hash dan riwayat upload sebelumnya.
 
 - Produk: website pembelajaran coding anak kelas 3–5 SD.
 - Tema lomba: Innovating Education Through Technology — Web Education for Kids.
@@ -57,9 +76,10 @@ AI Agent wajib membedakan:
 
 ## 7. Ketentuan prompt lomba yang perlu diklarifikasi
 
-Panduan PPT menyebut jurnal prompt terkurasi “maks 5 prompt” dan pada saat yang sama meminta log prompt mentah awal–akhir untuk verifikasi. Project menyimpan:
+Slide 5 PPT menyebut jurnal terkurasi “maks 5 prompt”, sedangkan slide 12 menyebut “Jurnal prompt terkurasi (5 prompt)”. Ini adalah perbedaan maksimal lima vs tepat lima yang perlu diklarifikasi ke panitia. Log mentah awal–akhir adalah lampiran terpisah untuk verifikasi, bukan dibatasi menjadi lima. Project menyimpan:
 
 - `docs/PROMPT_LOG.md` untuk log mentah yang hanya berisi prompt yang benar-benar digunakan.
+- `docs/SESSION_PROMPTS.md` untuk teks lengkap prompt dalam sesi penyempurnaan yang tersedia, termasuk prompt delegasi yang ditandai jelas.
 - Bagian jurnal terkurasi berisi paling banyak lima prompt penting: ide/PRD, debugging, audit/optimasi, finishing, dan satu bebas.
 
 Jika panitia memakai istilah “jumlah prompt” secara berbeda, peserta perlu meminta klarifikasi sebelum submit.
