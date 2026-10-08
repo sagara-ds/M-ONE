@@ -1,0 +1,15 @@
+{
+  "name": "detektif-bug",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Website pembelajaran coding anak tentang urutan, pengulangan, dan debugging.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test:missions": "node scripts/verify-missions.mjs",
+    "preview": "node scripts/preview.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
