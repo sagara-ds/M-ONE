@@ -295,7 +295,7 @@ function render() {
   const hint = mission.hints[Math.max(0, state.hintsUsed - 1)];
   document.querySelector('#app').innerHTML = `<div class="app-shell">
     <header class="topbar">
-      <a class="brand" href="/" aria-label="Detektif Bug, halaman utama"><span class="brand-mark">${icon('magnify', 26)}</span><span><strong>Detektif Bug</strong><small>belajar dari kesalahan</small></span></a>
+      <a class="brand" href="./" aria-label="Detektif Bug, halaman utama"><span class="brand-mark">${icon('magnify', 26)}</span><span><strong>Detektif Bug</strong><small>belajar dari kesalahan</small></span></a>
       <div class="topbar-progress"><span class="progress-label">Progresmu</span><div class="progress-track" aria-label="${totalDone} dari ${MISSIONS.length} misi selesai"><span style="width:${(totalDone / MISSIONS.length) * 100}%"></span></div><strong>${totalDone}/${MISSIONS.length}</strong></div>
     </header>
 
