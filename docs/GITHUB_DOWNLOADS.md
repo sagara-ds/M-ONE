@@ -4,6 +4,8 @@
 
 Untuk kode terbaru versi 0.2.0, gunakan [ZIP branch main](https://github.com/sagara-ds/M-ONE/archive/refs/heads/main.zip). Ekstrak ZIP, buka terminal pada folder hasil ekstrak, lalu jalankan `npm run build` dan `npm run preview`. ZIP GitHub source tidak memuat `dist/`; build membuat folder hosting tersebut. Arsip branch `downloads` di bawah tetap snapshot enam misi, bukan versi 12 misi.
 
+Verifikasi 9 Oktober 2026 pada commit aplikasi `5b477196bdb16d46ccedfd7208960eceb303ea64`: push main berhasil, SHA remote cocok, unduhan ZIP HTTP 200 (1.388.013 byte), ZIP valid, dan `src/missions.js`, `src/progress.js`, `src/app.js`, `src/style.css`, serta laporan browser identik dengan berkas lokal yang diuji. Commit dokumentasi sesudahnya menambahkan catatan verifikasi; source aplikasi tetap sama.
+
 ## Riwayat arsip enam misi
 
 Pengunggahan dilakukan atas permintaan pengguna pada 8 Oktober 2026.

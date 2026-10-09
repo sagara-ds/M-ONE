@@ -6,6 +6,10 @@ Repository [sagara-ds/M-ONE](https://github.com/sagara-ds/M-ONE/tree/main) meres
 
 Build statis menghasilkan `dist/`, termasuk 12 misi, modul progres dan suara, font lokal, serta favicon. Aplikasi diuji melalui server lokal; bukti tersimpan di `VALIDATION.md`. GitHub Pages belum berhasil diverifikasi sebagai website publik.
 
+Perluasan berhasil di-push ke `main` pada commit **`5b477196bdb16d46ccedfd7208960eceb303ea64`**, 9 Oktober 2026. `git ls-remote` mengembalikan SHA identik. ZIP branch main merespons HTTP 200, valid, dan source misi/progres/app/style serta laporan browser cocok byte-for-byte dengan berkas yang diuji. Ini memverifikasi kode dapat diunduh, bukan deployment.
+
+Run baru [37871002740](https://github.com/sagara-ds/M-ONE/actions/runs/37871002740) untuk perubahan ini juga berstatus **Failure** pada Configure Pages, dengan pesan Pages belum diaktifkan / `Not Found`. Pengaktifan Pages melalui Settings masih diperlukan.
+
 Run [37801683837](https://github.com/sagara-ds/M-ONE/actions/runs/37801683837) untuk commit dasar gagal pada Configure Pages: **“Get Pages site failed… Pages enabled and configured to build using GitHub Actions… Not Found”**. Halaman run ini berhasil dibaca pada 9 Oktober. Pemeriksaan langsung calon domain Pages dari cloud ditolak proxy dengan CONNECT 403, sehingga itu bukan bukti website aktif atau mati.
 
 ## Mengaktifkan GitHub Pages
