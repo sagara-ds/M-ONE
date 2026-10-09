@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { COMMANDS, MISSIONS, simulate } from '../src/app.js';
+import { STAGES, mapSize } from '../src/missions.js';
 
 // Playwright is a development check only, never an application dependency.
 // Example: PLAYWRIGHT_MODULE=/tmp/detektif-browser/node_modules/playwright/index.mjs node scripts/verify-browser.mjs
@@ -72,6 +73,8 @@ async function snapshot(page) {
 }
 async function solveWithClicks(page, mission) {
   await setProgram(page, mission.solution);
+  const size = mapSize(mission);
+  assert.equal(await page.locator('.map-cell').count(), size.width * size.height);
   const expected = simulate(mission.solution, mission);
   for (let i = 1; i < expected.steps.length; i += 1) {
     await action(page, 'step').click();
@@ -89,7 +92,50 @@ async function solveWithClicks(page, mission) {
   }
   await page.locator('.result-success').waitFor();
   assert.equal(await page.locator('.mission-item.is-done').count(), mission.id);
-  return { cards: mission.solution.length, simulatedSteps: expected.steps.length - 1 };
+  return { cards: mission.solution.length, simulatedSteps: expected.steps.length - 1, map: size, mapCells: size.width * size.height };
+}
+
+async function answerReflection(page, mission) {
+  assert.equal(await page.locator('.reflection-choices .reflection-choice').count(), 3);
+  assert.equal(await page.locator('.reflection-heading h3').textContent(), mission.reflection.question);
+  const wrongIndex = (mission.reflection.correctIndex + 1) % 3;
+  await page.locator(`[data-action="answer-reflection"][data-choice="${wrongIndex}"]`).click();
+  assert.ok((await page.locator('.reflection-feedback').textContent()).includes(mission.reflection.explanations[wrongIndex]));
+  assert.equal(await page.locator('.reflection-feedback.is-correct').count(), 0);
+  assert.equal(await page.locator('.reflection-choice:disabled').count(), 0);
+  const afterWrong = await page.evaluate(() => JSON.parse(localStorage.getItem('detektif-bug-progress-v1')));
+  assert.equal(afterWrong.understood[mission.id - 1], false);
+  assert.equal(await action(page, mission.id === MISSIONS.length ? 'show-summary' : 'next-mission').isDisabled(), false);
+  const correctChoice = page.locator(`[data-action="answer-reflection"][data-choice="${mission.reflection.correctIndex}"]`);
+  await correctChoice.focus();
+  await correctChoice.press('Enter');
+  assert.ok((await page.locator('.reflection-feedback.is-correct').textContent()).includes(mission.reflection.explanations[mission.reflection.correctIndex]));
+  assert.equal(await page.locator('.reflection-choice:disabled').count(), 3);
+  assert.equal(await page.locator('.reflection-choice.is-correct').getAttribute('data-choice'), String(mission.reflection.correctIndex));
+  assert.equal(await page.locator('.reflection-feedback').evaluate(element => element === document.activeElement), true);
+  const afterCorrect = await page.evaluate(() => JSON.parse(localStorage.getItem('detektif-bug-progress-v1')));
+  assert.equal(afterCorrect.understood[mission.id - 1], true);
+  return { wrongIndex, correctIndex: mission.reflection.correctIndex, retryAllowed: true, keyboardCorrectAnswer: true, focusedExplanation: true, storedCorrectAnswer: true, userStudy: false };
+}
+
+async function checkStageProgress(page, completed) {
+  assert.equal(await page.locator('.stage-card').count(), STAGES.length);
+  assert.equal(await page.locator('.stage-node').count(), MISSIONS.length);
+  assert.equal(await page.locator('.mission-item').count(), MISSIONS.length);
+  assert.equal(await page.locator('.stage-node.is-done').count(), completed);
+  assert.equal(await page.locator('.badge-item.is-earned').count(), Math.floor(completed / 4));
+  assert.equal(await page.locator('.mission-item:disabled').count(), Math.max(0, MISSIONS.length - completed - 1));
+  assert.equal(await page.locator('.stage-node:disabled').count(), Math.max(0, MISSIONS.length - completed - 1));
+  const labels = await page.locator('.stage-node, .mission-item').evaluateAll(buttons => buttons.map(button => button.getAttribute('aria-label')));
+  assert.ok(labels.every(label => /^Misi \d+:\s*\S/.test(label)), 'Every mission button needs a readable mission label.');
+  for (const stage of STAGES) {
+    const unlocked = completed >= stage.missionIds[0] - 1;
+    const done = completed >= stage.missionIds.at(-1);
+    assert.equal(await page.locator(`[data-action="select-stage"][data-stage="${stage.id}"]`).isDisabled(), !unlocked);
+    assert.equal(await page.locator(`.stage-card[data-stage-id="${stage.id}"]`).evaluate(element => element.classList.contains('is-complete')), done);
+    assert.equal(await page.locator(`.badge-item[data-stage-id="${stage.id}"]`).evaluate(element => element.classList.contains('is-earned')), done);
+  }
+  return { completed, earnedBadges: Math.floor(completed / 4), unlockedStages: STAGES.filter(stage => completed >= stage.missionIds[0] - 1).map(stage => stage.id) };
 }
 
 try {
@@ -97,9 +143,11 @@ try {
   await check('Awal: suara mati, misi berikutnya terkunci', async () => {
     assert.equal(await action(page, 'toggle-sound').getAttribute('aria-pressed'), 'false');
     assert.equal(await action(page, 'toggle-voice').getAttribute('aria-pressed'), 'false');
-    assert.equal(await page.locator('.mission-item:disabled').count(), 5);
+    assert.equal(await page.locator('.mission-item:disabled').count(), MISSIONS.length - 1);
     assert.deepEqual(await programLabels(page), MISSIONS[0].initial.map(command => COMMANDS[command].label));
-    return { lockedMissions: 5, sound: false, voice: false };
+    await checkStageProgress(page, 0);
+    assert.equal(await page.locator('.reflection-panel').count(), 0);
+    return { lockedMissions: MISSIONS.length - 1, sound: false, voice: false, stages: 3 };
   });
   await check('Kartu dapat dinaikkan, diturunkan, dihapus, dan ditambah melalui klik', async () => {
     const initial = [...MISSIONS[0].initial];
@@ -121,7 +169,7 @@ try {
       assert.equal(await action(page, 'run').isDisabled(), true);
       assert.equal(await action(page, 'hint').isDisabled(), true);
       assert.equal(await page.locator('.palette-button:not(:disabled)').count(), 0);
-      await page.locator('.result-error').waitFor({ timeout: 16000 });
+      await page.locator('.result-error').waitFor({ timeout: 30000 });
       const failure = await page.locator('.result-error p').textContent();
       assert.ok(failure.length > 0);
       const hints = [];
@@ -139,15 +187,44 @@ try {
       return { failure, hints };
     });
     await check(`Misi ${mission.id}: solusi melalui klik dan tiap langkah robot cocok`, () => solveWithClicks(page, mission));
+    await check(`Misi ${mission.id}: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan`, () => answerReflection(page, mission));
+    if (mission.id % 4 === 0) await check(`Selesai misi ${mission.id}: lencana dan stage berikutnya sesuai progres`, () => checkStageProgress(page, mission.id));
     if (mission.id < MISSIONS.length) await action(page, 'next-mission').click();
   }
-  await check('Enam misi selesai dan progres bertahan setelah reload', async () => {
+  await check('Dua belas misi selesai: rangkuman mencatat misi, jawaban, dan tiga lencana', async () => {
+    await action(page, 'show-summary').click();
+    assert.equal(await page.locator('#learning-summary').evaluate(element => element.open), true);
+    assert.deepEqual(await page.locator('.learning-stats strong').allTextContents(), ['12/12', '12/12', '3/3']);
+    assert.equal(await page.locator('.concept-notes li').count(), 12);
+    assert.equal(await page.locator('.badge-item.is-earned').count(), 3);
+    assert.match(await page.locator('.journal-note').textContent(), /belum menjadi bukti kemampuan coding/);
+    return { completedMissions: 12, correctConceptAnswers: 12, badges: 3, noClaimOfLearningImpact: true };
+  });
+  await check('Progres dua belas misi dan jawaban bertahan setelah reload', async () => {
     const progress = await page.evaluate(() => JSON.parse(localStorage.getItem('detektif-bug-progress-v1')));
-    assert.deepEqual(progress.completed, Array(6).fill(true));
+    assert.deepEqual(progress.completed, Array(12).fill(true));
+    assert.deepEqual(progress.understood, Array(12).fill(true));
+    assert.equal(progress.lastMissionIndex, 11);
     await page.reload();
-    assert.equal(await page.locator('.mission-item.is-done').count(), 6);
+    assert.equal(await page.locator('.mission-heading h2').textContent(), MISSIONS[11].title);
+    assert.equal(await page.locator('.mission-item.is-done').count(), 12);
     assert.equal(await page.locator('.mission-item:disabled').count(), 0);
-    return { completed: progress.completed };
+    assert.equal(await page.locator('.reflection-choice:disabled').count(), 3);
+    assert.equal(await page.locator('.reflection-feedback.is-correct').count(), 1);
+    await checkStageProgress(page, 12);
+    return progress;
+  });
+  await check('Stage dan node peta dapat dipakai bersama daftar samping', async () => {
+    for (const stage of STAGES) {
+      await page.locator(`[data-action="select-stage"][data-stage="${stage.id}"]`).click();
+      assert.equal(await page.locator('.mission-heading h2').textContent(), MISSIONS[stage.missionIds[0] - 1].title);
+      const node = page.locator(`[data-action="jump-mission"][data-index="${stage.missionIds.at(-1) - 1}"]`);
+      await node.focus();
+      await node.press('Enter');
+      assert.equal(await page.locator('.mission-heading h2').textContent(), MISSIONS[stage.missionIds.at(-1) - 1].title);
+      assert.equal(await page.locator('.mission-item.is-active').getAttribute('data-index'), String(stage.missionIds.at(-1) - 1));
+    }
+    return { stageLaunches: 3, keyboardNodeActivations: 3, sidebarTracksSelection: true };
   });
   await check('Pengulangan menampilkan 1/3, 2/3, 3/3 pada kartu yang sama', async () => {
     await page.locator('[data-action="select-mission"][data-index="2"]').click();
@@ -203,6 +280,20 @@ try {
     await action(page, 'reset').click();
     return { pausedStep, resumedStep: pausedStep + 1 };
   });
+  await check('Membuka panduan ketika berjalan menjeda robot dan dialog dapat ditutup dengan Escape', async () => {
+    await action(page, 'run').click();
+    await page.waitForFunction(() => document.querySelector('.playback-count').textContent.trim().startsWith('1 /'));
+    await action(page, 'open-help').click();
+    assert.equal(await page.locator('#help-dialog').evaluate(element => element.open), true);
+    const pausedStep = await readCount(page);
+    await page.waitForTimeout(1100);
+    assert.equal(await readCount(page), pausedStep);
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('#help-dialog').evaluate(element => element.open), false);
+    assert.match(await action(page, 'run').textContent(), /Lanjutkan program/);
+    await action(page, 'reset').click();
+    return { pausedStep, heldWhileReadingHelp: true, escapeClosedDialog: true };
+  });
   await check('Ulangi lalu segera jalankan membatalkan timer percobaan lama', async () => {
     await page.locator('[data-action="select-mission"][data-index="0"]').click();
     await action(page, 'run').click();
@@ -224,17 +315,67 @@ try {
     await action(page, 'reset').click();
     return { cancelledInitialTick: true, cancelledOldSuccess: true };
   });
-  for (const width of [375, 768, 1024, 1440]) {
-    await check(`Tampilan ${width}px: tidak ada overflow mendatar`, async () => {
-      await page.setViewportSize({ width, height: 1000 });
-      const dimensions = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth, body: document.body.scrollWidth }));
-      assert.ok(dimensions.document <= width, JSON.stringify(dimensions));
-      assert.ok(dimensions.body <= width, JSON.stringify(dimensions));
-      return dimensions;
-    });
+  await check('Rak penghalang menahan posisi robot dan memberi petunjuk rute', async () => {
+    const mission = MISSIONS[8];
+    await page.locator('[data-action="select-mission"][data-index="8"]').click();
+    await setProgram(page, ['forward', 'forward']);
+    assert.equal(await page.locator('.map-cell').count(), 30);
+    assert.equal(await page.locator('.map-cell.has-wall').count(), mission.walls.length);
+    const before = await snapshot(page);
+    const positions = [];
+    for (let index = 0; index < 2; index += 1) {
+      await action(page, 'step').click();
+      const after = await snapshot(page);
+      assert.equal(after.x, before.x);
+      assert.equal(after.y, before.y);
+      positions.push([after.x, after.y]);
+    }
+    await page.locator('.result-error').waitFor();
+    assert.match(await page.locator('.result-error p').textContent(), /rak/i);
+    await action(page, 'hint').click();
+    assert.match(await page.locator('.hint-box p').textContent(), /rak|terhalang/i);
+    await action(page, 'reset').click();
+    return { wallCells: mission.walls.length, attemptedSteps: 2, positions, stayedOutsideWall: true };
+  });
+  await check('Robot enam kolom bergerak tepat satu petak dan tetap di dalam peta', async () => {
+    const mission = MISSIONS[11];
+    await page.locator('[data-action="select-mission"][data-index="11"]').click();
+    await setProgram(page, ['forward', 'forward']);
+    const before = await page.locator('.robot-position').evaluate(element => ({ left: element.getBoundingClientRect().left, width: element.getBoundingClientRect().width }));
+    await action(page, 'step').click();
+    await page.waitForTimeout(470);
+    const after = await page.locator('.robot-position').evaluate(element => element.getBoundingClientRect().left);
+    const gap = await page.locator('.map-grid').evaluate(element => Number.parseFloat(getComputedStyle(element).columnGap));
+    assert.ok(Math.abs(after - before.left - before.width - gap) < 1, JSON.stringify({ before, after, gap }));
+    const current = await snapshot(page);
+    assert.deepEqual([current.x, current.y], [mission.start.x + 1, mission.start.y]);
+    await action(page, 'reset').click();
+    return { mapColumns: 6, mapRows: 5, displacement: after - before.left, cellPitch: before.width + gap };
+  });
+  for (const missionIndex of [0, 11]) {
+    await page.locator(`[data-action="select-mission"][data-index="${missionIndex}"]`).click();
+    for (const width of [375, 768, 1024, 1440]) {
+      await check(`Misi ${missionIndex + 1}, tampilan ${width}px: peta stage dan permainan tanpa overflow`, async () => {
+        await page.setViewportSize({ width, height: 1000 });
+        const dimensions = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth, body: document.body.scrollWidth }));
+        assert.ok(dimensions.document <= width, JSON.stringify(dimensions));
+        assert.ok(dimensions.body <= width, JSON.stringify(dimensions));
+        assert.equal(await page.locator('.stage-node').count(), 12);
+        assert.equal(await page.locator('.mission-item').count(), 12);
+        assert.equal(await page.locator('.stage-node:disabled').count(), 0);
+        await page.locator('[data-action="jump-mission"][data-index="11"]').click();
+        assert.equal(await page.locator('.mission-heading h2').textContent(), MISSIONS[11].title);
+        await page.locator('[data-action="select-mission"][data-index="0"]').click();
+        assert.equal(await page.locator('.mission-heading h2').textContent(), MISSIONS[0].title);
+        await page.locator(`[data-action="select-mission"][data-index="${missionIndex}"]`).click();
+        const size = mapSize(MISSIONS[missionIndex]);
+        assert.equal(await page.locator('.map-cell').count(), size.width * size.height);
+        return { ...dimensions, map: size, accessibleNodes: 12, accessibleSidebarMissions: 12 };
+      });
+    }
   }
   await page.setViewportSize({ width: 375, height: 900 });
-  await check('Ponsel 375px: jalankan membawa peta ke layar', async () => {
+  await check('Ponsel 375px: jalankan membawa peta enam kolom ke layar', async () => {
     await action(page, 'run').click();
     await page.waitForTimeout(850);
     const visibleMap = await page.locator('.map-grid').evaluate(element => ({ top: element.getBoundingClientRect().top, bottom: element.getBoundingClientRect().bottom, viewport: innerHeight }));
@@ -243,11 +384,68 @@ try {
     await action(page, 'reset').click();
     return { map: visibleMap, focusedSimulationPanel: true };
   });
+  await page.locator('#learning-summary').evaluate(element => { element.open = false; });
   await page.screenshot({ path: resolve(outputRoot, 'screenshots/mobile-375.png'), fullPage: true, animations: 'disabled' });
+  await page.locator('.stage-map').screenshot({ path: resolve(outputRoot, 'screenshots/mobile-stage-map.png'), animations: 'disabled' });
+  await page.locator('.reflection-panel').screenshot({ path: resolve(outputRoot, 'screenshots/mobile-reflection.png'), animations: 'disabled' });
   await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.locator('.stage-map').screenshot({ path: resolve(outputRoot, 'screenshots/desktop-stage-map.png'), animations: 'disabled' });
   await page.locator('.workspace-grid').evaluate(element => window.scrollTo(0, element.getBoundingClientRect().top + window.scrollY - 18));
   await page.locator('.workspace-grid').screenshot({ path: resolve(outputRoot, 'screenshots/desktop-board.png'), animations: 'disabled' });
+  await page.locator('#learning-summary').evaluate(element => { element.open = true; });
+  await page.locator('#learning-summary').screenshot({ path: resolve(outputRoot, 'screenshots/desktop-learning-summary.png'), animations: 'disabled' });
   await context.close();
+
+  const legacy = await makePage({}, () => {
+    localStorage.setItem('detektif-bug-progress-v1', JSON.stringify({ completed: Array(6).fill(true) }));
+  });
+  await check('Migrasi progres lama enam misi: lanjut misi tujuh, lencana pertama tetap ada', async () => {
+    assert.equal(await legacy.page.locator('.mission-heading h2').textContent(), MISSIONS[6].title);
+    assert.equal(await legacy.page.locator('.mission-item.is-done').count(), 6);
+    assert.equal(await legacy.page.locator('.badge-item.is-earned').count(), 1);
+    assert.equal(await legacy.page.locator('.mission-item:disabled').count(), 5);
+    assert.equal(await legacy.page.locator('.reflection-panel').count(), 0);
+    await checkStageProgress(legacy.page, 6);
+    await legacy.page.locator('[data-action="select-stage"][data-stage="2"]').click();
+    assert.equal(await legacy.page.locator('.mission-heading h2').textContent(), MISSIONS[6].title);
+    const saved = await legacy.page.evaluate(() => JSON.parse(localStorage.getItem('detektif-bug-progress-v1')));
+    assert.deepEqual(saved.completed, [...Array(6).fill(true), ...Array(6).fill(false)]);
+    assert.deepEqual(saved.understood, Array(12).fill(false));
+    assert.equal(saved.lastMissionIndex, 6);
+    return { preservedCompletions: 6, nextMission: 7, badges: 1, inventedConceptAnswers: 0 };
+  });
+  await legacy.context.close();
+
+  const damaged = await makePage({}, () => {
+    localStorage.setItem('detektif-bug-progress-v1', '{broken');
+  });
+  await check('Data progres rusak tidak membuat aplikasi berhenti', async () => {
+    assert.equal(await damaged.page.locator('.mission-heading h2').textContent(), MISSIONS[0].title);
+    await checkStageProgress(damaged.page, 0);
+    await action(damaged.page, 'step').click();
+    assert.equal(await readCount(damaged.page), 1);
+    return { damagedJSON: true, firstMissionAvailable: true, playbackUsable: true };
+  });
+  await damaged.context.close();
+
+  const blocked = await makePage({}, () => {
+    Object.defineProperty(window, 'localStorage', { configurable: true, get() { throw new DOMException('Storage unavailable in test', 'SecurityError'); } });
+  });
+  await check('Penyimpanan diblokir: bermain, menjawab, dan membuka misi berikutnya tetap berfungsi', async () => {
+    await solveWithClicks(blocked.page, MISSIONS[0]);
+    await blocked.page.locator(`[data-action="answer-reflection"][data-choice="${MISSIONS[0].reflection.correctIndex}"]`).click();
+    assert.equal(await blocked.page.locator('.reflection-feedback.is-correct').count(), 1);
+    assert.equal(await blocked.page.locator('.reflection-choice:disabled').count(), 3);
+    await action(blocked.page, 'next-mission').click();
+    assert.equal(await blocked.page.locator('.mission-heading h2').textContent(), MISSIONS[1].title);
+    await action(blocked.page, 'toggle-calm').click();
+    assert.equal(await action(blocked.page, 'toggle-calm').getAttribute('aria-pressed'), 'true');
+    await blocked.page.reload();
+    assert.equal(await blocked.page.locator('.mission-heading h2').textContent(), MISSIONS[0].title);
+    assert.equal(await blocked.page.locator('.mission-item.is-done').count(), 0);
+    return { blockedStorage: true, inMemoryProgressWorks: true, progressUnavailableAfterReload: true };
+  });
+  await blocked.context.close();
 
   // Instrument real native Web Audio methods; no synthesized fake audio engine.
   const audioSession = await makePage({}, () => {

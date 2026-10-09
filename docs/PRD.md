@@ -1,5 +1,18 @@
 # PRD — Detektif Bug
 
+## Perluasan menjadi 12 misi — 9 Oktober 2026
+
+Pilihan peserta: tambah menjadi 12 misi, prioritaskan peta stage, lencana, dan rangkuman belajar. Enam misi lama dipertahankan; enam misi baru memakai rute berbeda, belokan, pengulangan, dan rak penghalang. Tidak menambah percabangan pada versi ini.
+
+- Tiga stage berisi empat misi: pengenalan urutan, menggabungkan pola, dan penyelidikan rute. Setiap stage memiliki cerita singkat, peta progres, serta lencana setelah empat misinya berhasil.
+- Misi terbuka berurutan. Stage baru menampilkan alasan terkunci dan misi yang perlu diselesaikan.
+- Setiap keberhasilan membuka satu pertanyaan “Apa yang kamu temukan?” tentang sebab-akibat/konsep misi. Jawaban salah dijelaskan, boleh dicoba lagi, dan tidak menghapus kemajuan simulasi.
+- Rangkuman menampilkan misi yang berhasil, konsep yang sudah dijawab benar, serta target belajar berikutnya. Lencana tidak bergantung pada jumlah percobaan atau penggunaan petunjuk.
+- Peta yang lebih besar dan penghalang terlihat serta memiliki label teks; robot tidak bisa melewati penghalang. Simulasi tetap menentukan keberhasilan.
+- Progres lama dari enam misi dimigrasikan tanpa dihapus. Pertanyaan konsep, stage terakhir, dan preferensi tetap lokal, tanpa login.
+
+Kriteria selesai: 12 solusi berhasil, 12 susunan awal gagal, semua petak rute tetap di dalam peta, penghalang menahan gerak, setiap pertanyaan punya penjelasan benar/salah, progres lama tidak hilang, lencana hanya terbuka saat syarat terpenuhi, tampilan 375/768/1024/1440px tidak melebar, build dan pemeriksaan browser selesai. Hasil dipush sebagai commit baru di `main`; keberhasilan hosting dinilai terpisah dari push.
+
 ## Pengembangan suara dan animasi — 8 Oktober 2026
 
 Tujuan perubahan: memperjelas hubungan kartu dengan gerak robot sekaligus membuat percobaan terasa menyenangkan. Manfaat belajar tetap hipotesis, belum hasil uji pengguna.

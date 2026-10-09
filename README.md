@@ -4,9 +4,11 @@ Website belajar coding untuk anak kelas 3–5 SD. Anak membantu robot mengantar 
 
 ## Status
 
-Versi pertama berisi enam misi tentang urutan dan pengulangan, simulasi robot, petunjuk bertahap, kontrol susunan kartu, tombol ulangi, dan penyimpanan progres di perangkat.
+Versi 0.2.0 berisi **12 misi dalam tiga stage**, peta perkembangan, tiga lencana, dan rangkuman belajar. Misi 7–12 menambahkan rute baru dan rak penghalang untuk berlatih belokan serta pengulangan. Enam misi awal tetap tersedia; progres lama dibaca tanpa dihapus.
 
-Penyempurnaan: robot bergerak antarp petak, kartu aktif dan hitungan ulang terlihat, buku ikut dibawa, serta ada perayaan singkat ketika berhasil. Tombol **Satu langkah** dan **Jeda** membantu mengamati. Efek suara, bacaan bahasa Indonesia, volume, kecepatan, dan gerak tenang dapat diatur; pilihan tersimpan di perangkat.
+Setelah misi selesai, anak mendapat pertanyaan konsep dengan penjelasan dan kesempatan mencoba lagi. Pertanyaan tidak mengunci misi berikutnya. Lencana diberikan setelah empat misi dalam stage berhasil; memakai petunjuk tidak mengurangi penghargaan. Rangkuman membedakan jumlah misi selesai dan pertanyaan dijawab tepat. Jawaban tepat belum membuktikan manfaat belajar.
+
+Robot bergerak antarpetak, kartu aktif dan hitungan ulang terlihat, buku ikut dibawa, serta ada perayaan singkat ketika berhasil. Tombol **Satu langkah** dan **Jeda** membantu mengamati. Efek suara, bacaan bahasa Indonesia, volume, kecepatan, dan gerak tenang dapat diatur; pilihan tersimpan di perangkat. Tombol **Cara bermain** menyediakan panduan dan contoh kartu ulang.
 
 Suara awalnya mati. Aktifkan **Suara efek** melalui tombol untuk mendengar bunyi pendek. **Bacakan** memakai suara bahasa Indonesia dari browser/perangkat bila tersedia; seluruh informasi tetap tertulis. Tidak ada musik latar, API berbayar, atau akun. Font disimpan lokal beserta lisensinya.
 
@@ -35,7 +37,9 @@ Di **PowerShell** gunakan `$env:PORT = "4174"`, lalu `npm run preview`. Jika por
 ## Struktur
 
 - `index.html` — shell halaman.
-- `src/app.js` — data misi, mesin simulasi, dan interaksi.
+- `src/app.js` — mesin simulasi dan interaksi.
+- `src/missions.js` — 12 misi, tiga stage, pertanyaan konsep, dan penjelasan.
+- `src/progress.js` — penyimpanan, migrasi progres, penguncian misi, dan lencana.
 - `src/feedback.js` — efek Web Audio dan narasi Web Speech opsional.
 - `src/style.css` — token visual dan layout responsif.
 - `public/fonts/` — font WOFF2 lokal dan lisensi.
@@ -52,12 +56,14 @@ Di **PowerShell** gunakan `$env:PORT = "4174"`, lalu `npm run preview`. Jika por
 ## Perintah
 
 ```powershell
-npm run test:missions
+npm test
 npm run build
 npm run preview
 ```
 
-`npm run build` membuat folder `dist/` yang siap diunggah ke static hosting. Deployment nyata, tautan repo public, dan URL hosting belum dicantumkan sampai benar-benar dilakukan dan diverifikasi.
+`npm test` memeriksa simulasi dan aturan progres. `npm run build` membuat folder `dist/` yang siap diunggah ke static hosting. Repository: [sagara-ds/M-ONE](https://github.com/sagara-ds/M-ONE/tree/main). [Unduh kode branch main](https://github.com/sagara-ds/M-ONE/archive/refs/heads/main.zip), ekstrak ZIP, lalu jalankan perintah lokal di atas. Arsip lama di branch `downloads` adalah snapshot enam misi.
+
+Workflow GitHub Pages menjalankan tes dan build setiap push ke `main`. Status hosting dan langkah konfigurasi dicatat di [DEPLOYMENT.md](docs/DEPLOYMENT.md); push berhasil belum berarti website berhasil terbit.
 
 Uji browser otomatis bersifat opsional dan memakai Playwright terpisah dari aplikasi. Contoh di cloud Linux, setelah preview berjalan (Chromium tersedia di `/usr/bin/chromium`):
 

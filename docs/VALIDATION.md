@@ -42,6 +42,32 @@ Screenshot [ponsel](screenshots/mobile-375.png) dan [desktop](screenshots/deskto
 - **Bunyi belum didengarkan manusia.** Headless memverifikasi penjadwalan API, bukan kualitas, kenyamanan volume, atau speaker perangkat. Coba langsung pada ponsel/komputer sebelum submit.
 - Bacaan dengan suara Indonesia asli dan kualitas pengucapannya belum diuji pada perangkat peserta. Ini bergantung pada browser/OS; teks selalu tersedia.
 - Belum ada uji anak/guru. Manfaat belajar tetap hipotesis; gunakan `TEST_GUIDE.md` untuk observasi nyata.
-- Belum ada deployment publik atau verifikasi repository public. Workflow GitHub Pages dan `dist/` disiapkan; lihat `DEPLOYMENT.md`.
+- Pada sesi 8 Oktober, deployment/public repo belum diverifikasi. Repository public kemudian diverifikasi pada sesi upload; status hosting terbaru ada di `DEPLOYMENT.md`.
 - Log chat GPT-5.6 Luna yang tidak diberikan belum dapat dinyatakan lengkap. Jangan mengarang bagian yang hilang.
 - Draft lingkungan menyimpan `install_script` dan `start_skill`; penyimpanan tidak berarti environment sudah dipublikasikan atau snapshot telah diuji di task baru.
+
+
+## Perluasan 12 misi — 9 Oktober 2026
+
+Run browser final pada laporan `browser-results.json`: **2026-10-09T01:38:29.047Z / 08.38.29 WIB**, Chromium headless pada build 0.2.0 lokal. Laporan menggantikan JSON run 8 Oktober; hasil lama tetap dicatat di bagian atas sebagai riwayat.
+
+| Pemeriksaan | Hasil aktual | Bukti |
+| --- | --- | --- |
+| `npm test` / mesin simulasi | **65 kasus lulus**, 12 misi | `scripts/verify-missions.mjs` |
+| `npm test` / progres | Lulus: migrasi enam misi, flag ketat, storage gagal, unlock, refleksi, lencana, rangkuman | `scripts/verify-progress.mjs` |
+| `npm run build` | Berhasil, termasuk `missions.js` dan `progress.js` | `scripts/build.mjs`, `dist/` lokal |
+| Browser | **69 lulus, 0 gagal** | `docs/browser-results.json` |
+| Exception/console error | **0** | Laporan browser |
+| Request browser gagal | **0** | Laporan browser |
+
+Runner mencoba **program awal salah dan solusi melalui klik pada seluruh 12 misi**. Pada setiap langkah, posisi, arah, buku yang dibawa, dan kartu aktif dibandingkan dengan mesin simulasi. Pertanyaan konsep dijawab salah lalu benar memakai Enter; penjelasan, kesempatan mencoba lagi, penyimpanan jawaban, dan fokus keyboard diperiksa. Lencana muncul tepat setelah misi 4/8/12; stage terkunci dan tombol misi sesuai progres.
+
+Pemeriksaan tambahan: rangkuman membedakan misi selesai dan jawaban tepat; reload mempertahankan progres dan lencana; data lama enam misi membuka misi 7 tanpa kehilangan status; data rusak atau storage diblokir tetap memungkinkan bermain; rak penghalang menahan posisi robot; peta enam kolom bergerak sesuai posisi cell; panduan yang dibuka ketika robot berjalan menjeda playback dan dapat ditutup dengan Escape. Tombol ulangi, Jeda/Lanjutkan, pembatalan timer lama, petunjuk, opt-in audio, preferensi, dan reduced-motion tetap lulus.
+
+Layout diperiksa pada **375, 768, 1024, dan 1440px**, untuk peta awal serta misi akhir; tidak ada scroll mendatar. Screenshot dari run otomatis tersimpan di `docs/screenshots/`, termasuk peta stage desktop dan ponsel. Semua progres di screenshot berasal dari runner, bukan uji anak.
+
+Review integrasi menemukan dua masalah yang diperbaiki sebelum run final: dialog panduan terhapus saat playback selesai dan fokus keyboard hilang ketika jawaban benar dinonaktifkan. Kini panduan menjeda robot dan jawaban benar memindahkan fokus ke penjelasannya.
+
+Isi `install_script` cloud yang diperbarui (`node --version`, `npm test`, `npm run build`) juga dijalankan utuh dengan hasil lulus pada Node **v24.19.0**. Draft `install_script` serta `start_skill` berhasil disimpan; penyimpanan ini belum berarti snapshot cloud dipublikasikan atau diuji pada task baru. Source aplikasi yang diuji dicatat dalam `source-manifest.sha256`.
+
+Batas bukti tetap berlaku: belum ada uji anak/guru; bunyi belum didengarkan manusia; pengucapan suara Indonesia asli bergantung perangkat; belum ada pengujian Windows langsung; manfaat belajar masih hipotesis. Repository public terverifikasi, tetapi Pages sebelumnya gagal karena belum diaktifkan dan domain hosting ditolak proxy cloud. Push kode serta keberhasilan deployment adalah pemeriksaan terpisah; lihat `DEPLOYMENT.md`.

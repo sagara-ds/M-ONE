@@ -2,11 +2,13 @@
 
 ## Untuk anak
 
-1. Buka halaman dan pilih misi 1, “Jejak lurus”.
+1. Buka “Cara bermain”, baca contoh kartu ulang, lalu pilih misi 1, “Jejak lurus”.
 2. Tekan “Jalankan program” dan lihat ke mana robot bergerak.
 3. Jika gagal, ubah satu kartu perintah lalu jalankan lagi.
 4. Jika bingung, tekan “Minta petunjuk” satu kali saja dan baca petunjuknya.
-5. Setelah berhasil, ulangi misi atau lanjut ke misi berikutnya.
+5. Setelah berhasil, coba pertanyaan konsep dan ceritakan alasanmu. Jawaban boleh dicoba lagi.
+6. Lanjutkan misi berikutnya melalui peta stage. Empat misi selesai memberi satu lencana.
+7. Buka “Rangkuman belajarku” untuk melihat catatan penemuanmu.
 
 Tanyakan dengan bahasa sederhana:
 
@@ -22,8 +24,12 @@ Catat observasi, bukan nilai yang menghakimi:
 - Apakah anak mengamati gerakan sebelum meminta petunjuk?
 - Apakah anak dapat menjelaskan jenis kesalahan dengan kata-katanya?
 - Apakah anak menyelesaikan misi lanjutan yang susunannya berbeda?
+- Apakah penjelasan anak sesuai gerakan robot, atau ia memilih jawaban tanpa alasan?
+- Pada misi 7–12, apakah anak membedakan petak tujuan dan rak penghalang?
 
 Jangan menyimpulkan hipotesis terbukti dari satu sesi singkat. Gunakan catatan untuk iterasi berikutnya.
+
+Untuk uji singkat 10–15 menit, mulai misi 1–3 dan satu misi baru yang sudah terbuka. Jangan mewajibkan seluruh 12 misi dalam satu sesi. Minta persetujuan pendamping dan kenyamanan anak; catat bantuan yang diberikan. Tidak perlu mengumpulkan nama atau data pribadi anak.
 
 ## Mengamati suara dan gerakan bersama anak
 
@@ -45,6 +51,13 @@ Catat jawaban, bantuan pendamping, kesulitan mengendalikan kartu, serta pilihan 
 - Tekan ulangi; pastikan robot, program, dan status kembali ke awal.
 - Selesaikan misi; pastikan misi berikutnya terbuka dan progres tersimpan.
 - Muat ulang halaman; progres tetap terbaca.
+- Periksa total 12 misi dan tiga stage. Stage berikutnya terbuka setelah misi sebelumnya berhasil; lencana muncul pada misi 4, 8, dan 12.
+- Jawab pertanyaan konsep salah lalu benar; penjelasan muncul, jawaban salah dapat dicoba lagi, dan misi berikutnya tetap bisa dibuka.
+- Pada misi yang memiliki rak penghalang, maju ke rak tidak memindahkan robot dan hasil tetap gagal.
+- Buka “Cara bermain” ketika program berjalan; robot harus berjeda dan panduan tetap terbuka.
+- Gunakan keyboard untuk menjawab pertanyaan benar; fokus harus berpindah ke penjelasan.
+- Untuk progres versi lama, pastikan enam status selesai tetap terbaca dan misi 7 terbuka. Jangan menghapus penyimpanan pengguna untuk menguji migrasi.
+- Buka rangkuman dan muat ulang; jumlah misi, jawaban tepat, dan lencana tetap konsisten.
 - Coba lebar 375px dan desktop; tidak boleh ada tombol utama yang terpotong.
 - Aktifkan reduced motion; animasi tidak boleh menghalangi aktivitas.
 - Tekan Jalankan; peta harus masuk ke layar dan hasil muncul di panel peta.

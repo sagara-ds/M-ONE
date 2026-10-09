@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-08T12:15:53.719Z",
+  "checkedAt": "2026-10-09T01:38:29.047Z",
   "target": "http://127.0.0.1:4173",
   "browser": "Chromium headless",
   "method": "UI clicks and native Web Audio instrumentation; speech fallback uses injected English-only voice availability",
@@ -8,28 +8,29 @@
     "No child or teacher user study was performed.",
     "Speech quality depends on real device voices."
   ],
-  "passed": 30,
+  "passed": 69,
   "failed": 0,
   "results": [
     {
       "name": "Awal: suara mati, misi berikutnya terkunci",
       "passed": true,
-      "milliseconds": 61,
+      "milliseconds": 151,
       "evidence": {
-        "lockedMissions": 5,
+        "lockedMissions": 11,
         "sound": false,
-        "voice": false
+        "voice": false,
+        "stages": 3
       }
     },
     {
       "name": "Kartu dapat dinaikkan, diturunkan, dihapus, dan ditambah melalui klik",
       "passed": true,
-      "milliseconds": 556
+      "milliseconds": 359
     },
     {
       "name": "Misi 1: program awal gagal, tiga petunjuk, ulangi",
       "passed": true,
-      "milliseconds": 5608,
+      "milliseconds": 5661,
       "evidence": {
         "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
         "hints": [
@@ -42,16 +43,35 @@
     {
       "name": "Misi 1: solusi melalui klik dan tiap langkah robot cocok",
       "passed": true,
-      "milliseconds": 2252,
+      "milliseconds": 2196,
       "evidence": {
         "cards": 5,
-        "simulatedSteps": 5
+        "simulatedSteps": 5,
+        "map": {
+          "width": 5,
+          "height": 4
+        },
+        "mapCells": 20
+      }
+    },
+    {
+      "name": "Misi 1: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan",
+      "passed": true,
+      "milliseconds": 134,
+      "evidence": {
+        "wrongIndex": 2,
+        "correctIndex": 1,
+        "retryAllowed": true,
+        "keyboardCorrectAnswer": true,
+        "focusedExplanation": true,
+        "storedCorrectAnswer": true,
+        "userStudy": false
       }
     },
     {
       "name": "Misi 2: program awal gagal, tiga petunjuk, ulangi",
       "passed": true,
-      "milliseconds": 6595,
+      "milliseconds": 6532,
       "evidence": {
         "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
         "hints": [
@@ -64,16 +84,35 @@
     {
       "name": "Misi 2: solusi melalui klik dan tiap langkah robot cocok",
       "passed": true,
-      "milliseconds": 1907,
+      "milliseconds": 1983,
       "evidence": {
         "cards": 6,
-        "simulatedSteps": 6
+        "simulatedSteps": 6,
+        "map": {
+          "width": 5,
+          "height": 4
+        },
+        "mapCells": 20
+      }
+    },
+    {
+      "name": "Misi 2: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan",
+      "passed": true,
+      "milliseconds": 115,
+      "evidence": {
+        "wrongIndex": 1,
+        "correctIndex": 0,
+        "retryAllowed": true,
+        "keyboardCorrectAnswer": true,
+        "focusedExplanation": true,
+        "storedCorrectAnswer": true,
+        "userStudy": false
       }
     },
     {
       "name": "Misi 3: program awal gagal, tiga petunjuk, ulangi",
       "passed": true,
-      "milliseconds": 5644,
+      "milliseconds": 5515,
       "evidence": {
         "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
         "hints": [
@@ -86,16 +125,35 @@
     {
       "name": "Misi 3: solusi melalui klik dan tiap langkah robot cocok",
       "passed": true,
-      "milliseconds": 1662,
+      "milliseconds": 1687,
       "evidence": {
         "cards": 4,
-        "simulatedSteps": 6
+        "simulatedSteps": 6,
+        "map": {
+          "width": 5,
+          "height": 4
+        },
+        "mapCells": 20
+      }
+    },
+    {
+      "name": "Misi 3: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan",
+      "passed": true,
+      "milliseconds": 125,
+      "evidence": {
+        "wrongIndex": 0,
+        "correctIndex": 2,
+        "retryAllowed": true,
+        "keyboardCorrectAnswer": true,
+        "focusedExplanation": true,
+        "storedCorrectAnswer": true,
+        "userStudy": false
       }
     },
     {
       "name": "Misi 4: program awal gagal, tiga petunjuk, ulangi",
       "passed": true,
-      "milliseconds": 9559,
+      "milliseconds": 9585,
       "evidence": {
         "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
         "hints": [
@@ -108,16 +166,48 @@
     {
       "name": "Misi 4: solusi melalui klik dan tiap langkah robot cocok",
       "passed": true,
-      "milliseconds": 2044,
+      "milliseconds": 2127,
       "evidence": {
         "cards": 6,
-        "simulatedSteps": 9
+        "simulatedSteps": 9,
+        "map": {
+          "width": 5,
+          "height": 4
+        },
+        "mapCells": 20
+      }
+    },
+    {
+      "name": "Misi 4: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan",
+      "passed": true,
+      "milliseconds": 108,
+      "evidence": {
+        "wrongIndex": 2,
+        "correctIndex": 1,
+        "retryAllowed": true,
+        "keyboardCorrectAnswer": true,
+        "focusedExplanation": true,
+        "storedCorrectAnswer": true,
+        "userStudy": false
+      }
+    },
+    {
+      "name": "Selesai misi 4: lencana dan stage berikutnya sesuai progres",
+      "passed": true,
+      "milliseconds": 51,
+      "evidence": {
+        "completed": 4,
+        "earnedBadges": 1,
+        "unlockedStages": [
+          1,
+          2
+        ]
       }
     },
     {
       "name": "Misi 5: program awal gagal, tiga petunjuk, ulangi",
       "passed": true,
-      "milliseconds": 6533,
+      "milliseconds": 6553,
       "evidence": {
         "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
         "hints": [
@@ -130,16 +220,35 @@
     {
       "name": "Misi 5: solusi melalui klik dan tiap langkah robot cocok",
       "passed": true,
-      "milliseconds": 2130,
+      "milliseconds": 2034,
       "evidence": {
         "cards": 6,
-        "simulatedSteps": 7
+        "simulatedSteps": 7,
+        "map": {
+          "width": 5,
+          "height": 4
+        },
+        "mapCells": 20
+      }
+    },
+    {
+      "name": "Misi 5: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan",
+      "passed": true,
+      "milliseconds": 103,
+      "evidence": {
+        "wrongIndex": 1,
+        "correctIndex": 0,
+        "retryAllowed": true,
+        "keyboardCorrectAnswer": true,
+        "focusedExplanation": true,
+        "storedCorrectAnswer": true,
+        "userStudy": false
       }
     },
     {
       "name": "Misi 6: program awal gagal, tiga petunjuk, ulangi",
       "passed": true,
-      "milliseconds": 11055,
+      "milliseconds": 11196,
       "evidence": {
         "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
         "hints": [
@@ -152,16 +261,320 @@
     {
       "name": "Misi 6: solusi melalui klik dan tiap langkah robot cocok",
       "passed": true,
-      "milliseconds": 2240,
+      "milliseconds": 2170,
       "evidence": {
         "cards": 7,
-        "simulatedSteps": 10
+        "simulatedSteps": 10,
+        "map": {
+          "width": 5,
+          "height": 4
+        },
+        "mapCells": 20
       }
     },
     {
-      "name": "Enam misi selesai dan progres bertahan setelah reload",
+      "name": "Misi 6: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan",
       "passed": true,
-      "milliseconds": 148,
+      "milliseconds": 108,
+      "evidence": {
+        "wrongIndex": 0,
+        "correctIndex": 2,
+        "retryAllowed": true,
+        "keyboardCorrectAnswer": true,
+        "focusedExplanation": true,
+        "storedCorrectAnswer": true,
+        "userStudy": false
+      }
+    },
+    {
+      "name": "Misi 7: program awal gagal, tiga petunjuk, ulangi",
+      "passed": true,
+      "milliseconds": 11090,
+      "evidence": {
+        "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
+        "hints": [
+          "Ada rak di depan robot. Amati petak yang tidak bisa dilewati.",
+          "Cari deretan petak kosong di samping rak. Robot mungkin perlu berbelok lebih dulu.",
+          "Gunakan “Satu langkah” untuk memeriksa belokan sebelum robot mencapai rak."
+        ]
+      }
+    },
+    {
+      "name": "Misi 7: solusi melalui klik dan tiap langkah robot cocok",
+      "passed": true,
+      "milliseconds": 2271,
+      "evidence": {
+        "cards": 7,
+        "simulatedSteps": 11,
+        "map": {
+          "width": 6,
+          "height": 4
+        },
+        "mapCells": 24
+      }
+    },
+    {
+      "name": "Misi 7: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan",
+      "passed": true,
+      "milliseconds": 105,
+      "evidence": {
+        "wrongIndex": 1,
+        "correctIndex": 0,
+        "retryAllowed": true,
+        "keyboardCorrectAnswer": true,
+        "focusedExplanation": true,
+        "storedCorrectAnswer": true,
+        "userStudy": false
+      }
+    },
+    {
+      "name": "Misi 8: program awal gagal, tiga petunjuk, ulangi",
+      "passed": true,
+      "milliseconds": 11078,
+      "evidence": {
+        "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
+        "hints": [
+          "Robot sampai ke tepi peta. Perhatikan langkah pertama yang tidak bisa maju.",
+          "Bandingkan arah robot dengan petak tujuan. Periksa juga angka pada kartu ulang.",
+          "Gunakan “Satu langkah” untuk menghitung jarak sebelum belok atau berhenti."
+        ]
+      }
+    },
+    {
+      "name": "Misi 8: solusi melalui klik dan tiap langkah robot cocok",
+      "passed": true,
+      "milliseconds": 2387,
+      "evidence": {
+        "cards": 7,
+        "simulatedSteps": 11,
+        "map": {
+          "width": 6,
+          "height": 4
+        },
+        "mapCells": 24
+      }
+    },
+    {
+      "name": "Misi 8: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan",
+      "passed": true,
+      "milliseconds": 126,
+      "evidence": {
+        "wrongIndex": 2,
+        "correctIndex": 1,
+        "retryAllowed": true,
+        "keyboardCorrectAnswer": true,
+        "focusedExplanation": true,
+        "storedCorrectAnswer": true,
+        "userStudy": false
+      }
+    },
+    {
+      "name": "Selesai misi 8: lencana dan stage berikutnya sesuai progres",
+      "passed": true,
+      "milliseconds": 65,
+      "evidence": {
+        "completed": 8,
+        "earnedBadges": 2,
+        "unlockedStages": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "name": "Misi 9: program awal gagal, tiga petunjuk, ulangi",
+      "passed": true,
+      "milliseconds": 15165,
+      "evidence": {
+        "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
+        "hints": [
+          "Ada rak di depan robot. Amati petak yang tidak bisa dilewati.",
+          "Cari deretan petak kosong di samping rak. Robot mungkin perlu berbelok lebih dulu.",
+          "Gunakan “Satu langkah” untuk memeriksa belokan sebelum robot mencapai rak."
+        ]
+      }
+    },
+    {
+      "name": "Misi 9: solusi melalui klik dan tiap langkah robot cocok",
+      "passed": true,
+      "milliseconds": 3375,
+      "evidence": {
+        "cards": 10,
+        "simulatedSteps": 15,
+        "map": {
+          "width": 6,
+          "height": 5
+        },
+        "mapCells": 30
+      }
+    },
+    {
+      "name": "Misi 9: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan",
+      "passed": true,
+      "milliseconds": 173,
+      "evidence": {
+        "wrongIndex": 0,
+        "correctIndex": 2,
+        "retryAllowed": true,
+        "keyboardCorrectAnswer": true,
+        "focusedExplanation": true,
+        "storedCorrectAnswer": true,
+        "userStudy": false
+      }
+    },
+    {
+      "name": "Misi 10: program awal gagal, tiga petunjuk, ulangi",
+      "passed": true,
+      "milliseconds": 11139,
+      "evidence": {
+        "failure": "Ada rak yang menghalangi robot. Cari petak kosong untuk memutari rak.",
+        "hints": [
+          "Ada rak di depan robot. Amati petak yang tidak bisa dilewati.",
+          "Cari deretan petak kosong di samping rak. Robot mungkin perlu berbelok lebih dulu.",
+          "Gunakan “Satu langkah” untuk memeriksa belokan sebelum robot mencapai rak."
+        ]
+      }
+    },
+    {
+      "name": "Misi 10: solusi melalui klik dan tiap langkah robot cocok",
+      "passed": true,
+      "milliseconds": 2185,
+      "evidence": {
+        "cards": 6,
+        "simulatedSteps": 10,
+        "map": {
+          "width": 6,
+          "height": 5
+        },
+        "mapCells": 30
+      }
+    },
+    {
+      "name": "Misi 10: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan",
+      "passed": true,
+      "milliseconds": 146,
+      "evidence": {
+        "wrongIndex": 1,
+        "correctIndex": 0,
+        "retryAllowed": true,
+        "keyboardCorrectAnswer": true,
+        "focusedExplanation": true,
+        "storedCorrectAnswer": true,
+        "userStudy": false
+      }
+    },
+    {
+      "name": "Misi 11: program awal gagal, tiga petunjuk, ulangi",
+      "passed": true,
+      "milliseconds": 15164,
+      "evidence": {
+        "failure": "Robot belum berada di petak perpustakaan dengan membawa buku.",
+        "hints": [
+          "Ada rak di depan robot. Amati petak yang tidak bisa dilewati.",
+          "Cari deretan petak kosong di samping rak. Robot mungkin perlu berbelok lebih dulu.",
+          "Gunakan “Satu langkah” untuk memeriksa belokan sebelum robot mencapai rak."
+        ]
+      }
+    },
+    {
+      "name": "Misi 11: solusi melalui klik dan tiap langkah robot cocok",
+      "passed": true,
+      "milliseconds": 2975,
+      "evidence": {
+        "cards": 9,
+        "simulatedSteps": 15,
+        "map": {
+          "width": 6,
+          "height": 5
+        },
+        "mapCells": 30
+      }
+    },
+    {
+      "name": "Misi 11: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan",
+      "passed": true,
+      "milliseconds": 121,
+      "evidence": {
+        "wrongIndex": 2,
+        "correctIndex": 1,
+        "retryAllowed": true,
+        "keyboardCorrectAnswer": true,
+        "focusedExplanation": true,
+        "storedCorrectAnswer": true,
+        "userStudy": false
+      }
+    },
+    {
+      "name": "Misi 12: program awal gagal, tiga petunjuk, ulangi",
+      "passed": true,
+      "milliseconds": 15133,
+      "evidence": {
+        "failure": "Ada rak yang menghalangi robot. Cari petak kosong untuk memutari rak.",
+        "hints": [
+          "Ada rak di depan robot. Amati petak yang tidak bisa dilewati.",
+          "Cari deretan petak kosong di samping rak. Robot mungkin perlu berbelok lebih dulu.",
+          "Gunakan “Satu langkah” untuk memeriksa belokan sebelum robot mencapai rak."
+        ]
+      }
+    },
+    {
+      "name": "Misi 12: solusi melalui klik dan tiap langkah robot cocok",
+      "passed": true,
+      "milliseconds": 2878,
+      "evidence": {
+        "cards": 9,
+        "simulatedSteps": 14,
+        "map": {
+          "width": 6,
+          "height": 5
+        },
+        "mapCells": 30
+      }
+    },
+    {
+      "name": "Misi 12: pertanyaan salah memberi penjelasan dan jawaban tepat tersimpan",
+      "passed": true,
+      "milliseconds": 130,
+      "evidence": {
+        "wrongIndex": 0,
+        "correctIndex": 2,
+        "retryAllowed": true,
+        "keyboardCorrectAnswer": true,
+        "focusedExplanation": true,
+        "storedCorrectAnswer": true,
+        "userStudy": false
+      }
+    },
+    {
+      "name": "Selesai misi 12: lencana dan stage berikutnya sesuai progres",
+      "passed": true,
+      "milliseconds": 57,
+      "evidence": {
+        "completed": 12,
+        "earnedBadges": 3,
+        "unlockedStages": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "name": "Dua belas misi selesai: rangkuman mencatat misi, jawaban, dan tiga lencana",
+      "passed": true,
+      "milliseconds": 403,
+      "evidence": {
+        "completedMissions": 12,
+        "correctConceptAnswers": 12,
+        "badges": 3,
+        "noClaimOfLearningImpact": true
+      }
+    },
+    {
+      "name": "Progres dua belas misi dan jawaban bertahan setelah reload",
+      "passed": true,
+      "milliseconds": 223,
       "evidence": {
         "completed": [
           true,
@@ -169,14 +582,45 @@
           true,
           true,
           true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
           true
-        ]
+        ],
+        "understood": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "lastMissionIndex": 11
+      }
+    },
+    {
+      "name": "Stage dan node peta dapat dipakai bersama daftar samping",
+      "passed": true,
+      "milliseconds": 2123,
+      "evidence": {
+        "stageLaunches": 3,
+        "keyboardNodeActivations": 3,
+        "sidebarTracksSelection": true
       }
     },
     {
       "name": "Pengulangan menampilkan 1/3, 2/3, 3/3 pada kartu yang sama",
       "passed": true,
-      "milliseconds": 1527,
+      "milliseconds": 2998,
       "evidence": [
         "Kartu 1: Ulang 3×: maju · 1 dari 3",
         "Kartu 1: Ulang 3×: maju · 2 dari 3",
@@ -186,7 +630,7 @@
     {
       "name": "Animasi robot bergerak antarp petak dan arah kiri berputar negatif",
       "passed": true,
-      "milliseconds": 2170,
+      "milliseconds": 2795,
       "evidence": {
         "leftDegrees": -90,
         "rightDegrees": 0,
@@ -197,78 +641,238 @@
     {
       "name": "Jeda menahan langkah dan lanjutkan meneruskan langkah berikutnya",
       "passed": true,
-      "milliseconds": 2042,
+      "milliseconds": 2707,
       "evidence": {
         "pausedStep": 1,
         "resumedStep": 2
       }
     },
     {
+      "name": "Membuka panduan ketika berjalan menjeda robot dan dialog dapat ditutup dengan Escape",
+      "passed": true,
+      "milliseconds": 1987,
+      "evidence": {
+        "pausedStep": 1,
+        "heldWhileReadingHelp": true,
+        "escapeClosedDialog": true
+      }
+    },
+    {
       "name": "Ulangi lalu segera jalankan membatalkan timer percobaan lama",
       "passed": true,
-      "milliseconds": 3249,
+      "milliseconds": 4705,
       "evidence": {
         "cancelledInitialTick": true,
         "cancelledOldSuccess": true
       }
     },
     {
-      "name": "Tampilan 375px: tidak ada overflow mendatar",
+      "name": "Rak penghalang menahan posisi robot dan memberi petunjuk rute",
       "passed": true,
-      "milliseconds": 41,
+      "milliseconds": 4143,
+      "evidence": {
+        "wallCells": 4,
+        "attemptedSteps": 2,
+        "positions": [
+          [
+            0,
+            4
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "stayedOutsideWall": true
+      }
+    },
+    {
+      "name": "Robot enam kolom bergerak tepat satu petak dan tetap di dalam peta",
+      "passed": true,
+      "milliseconds": 3236,
+      "evidence": {
+        "mapColumns": 6,
+        "mapRows": 5,
+        "displacement": 127.828125,
+        "cellPitch": 127.828125
+      }
+    },
+    {
+      "name": "Misi 1, tampilan 375px: peta stage dan permainan tanpa overflow",
+      "passed": true,
+      "milliseconds": 1290,
       "evidence": {
         "viewport": 375,
         "document": 375,
-        "body": 375
+        "body": 375,
+        "map": {
+          "width": 5,
+          "height": 4
+        },
+        "accessibleNodes": 12,
+        "accessibleSidebarMissions": 12
       }
     },
     {
-      "name": "Tampilan 768px: tidak ada overflow mendatar",
+      "name": "Misi 1, tampilan 768px: peta stage dan permainan tanpa overflow",
       "passed": true,
-      "milliseconds": 22,
+      "milliseconds": 1343,
       "evidence": {
         "viewport": 768,
         "document": 768,
-        "body": 768
+        "body": 768,
+        "map": {
+          "width": 5,
+          "height": 4
+        },
+        "accessibleNodes": 12,
+        "accessibleSidebarMissions": 12
       }
     },
     {
-      "name": "Tampilan 1024px: tidak ada overflow mendatar",
+      "name": "Misi 1, tampilan 1024px: peta stage dan permainan tanpa overflow",
       "passed": true,
-      "milliseconds": 24,
+      "milliseconds": 1337,
       "evidence": {
         "viewport": 1024,
         "document": 1024,
-        "body": 1024
+        "body": 1024,
+        "map": {
+          "width": 5,
+          "height": 4
+        },
+        "accessibleNodes": 12,
+        "accessibleSidebarMissions": 12
       }
     },
     {
-      "name": "Tampilan 1440px: tidak ada overflow mendatar",
+      "name": "Misi 1, tampilan 1440px: peta stage dan permainan tanpa overflow",
       "passed": true,
-      "milliseconds": 20,
+      "milliseconds": 1331,
       "evidence": {
         "viewport": 1440,
         "document": 1440,
-        "body": 1440
+        "body": 1440,
+        "map": {
+          "width": 5,
+          "height": 4
+        },
+        "accessibleNodes": 12,
+        "accessibleSidebarMissions": 12
       }
     },
     {
-      "name": "Ponsel 375px: jalankan membawa peta ke layar",
+      "name": "Misi 12, tampilan 375px: peta stage dan permainan tanpa overflow",
       "passed": true,
-      "milliseconds": 980,
+      "milliseconds": 1065,
+      "evidence": {
+        "viewport": 375,
+        "document": 375,
+        "body": 375,
+        "map": {
+          "width": 6,
+          "height": 5
+        },
+        "accessibleNodes": 12,
+        "accessibleSidebarMissions": 12
+      }
+    },
+    {
+      "name": "Misi 12, tampilan 768px: peta stage dan permainan tanpa overflow",
+      "passed": true,
+      "milliseconds": 1067,
+      "evidence": {
+        "viewport": 768,
+        "document": 768,
+        "body": 768,
+        "map": {
+          "width": 6,
+          "height": 5
+        },
+        "accessibleNodes": 12,
+        "accessibleSidebarMissions": 12
+      }
+    },
+    {
+      "name": "Misi 12, tampilan 1024px: peta stage dan permainan tanpa overflow",
+      "passed": true,
+      "milliseconds": 1075,
+      "evidence": {
+        "viewport": 1024,
+        "document": 1024,
+        "body": 1024,
+        "map": {
+          "width": 6,
+          "height": 5
+        },
+        "accessibleNodes": 12,
+        "accessibleSidebarMissions": 12
+      }
+    },
+    {
+      "name": "Misi 12, tampilan 1440px: peta stage dan permainan tanpa overflow",
+      "passed": true,
+      "milliseconds": 1091,
+      "evidence": {
+        "viewport": 1440,
+        "document": 1440,
+        "body": 1440,
+        "map": {
+          "width": 6,
+          "height": 5
+        },
+        "accessibleNodes": 12,
+        "accessibleSidebarMissions": 12
+      }
+    },
+    {
+      "name": "Ponsel 375px: jalankan membawa peta enam kolom ke layar",
+      "passed": true,
+      "milliseconds": 996,
       "evidence": {
         "map": {
-          "top": 136.75,
-          "bottom": 360.75,
+          "top": 136.734375,
+          "bottom": 417.734375,
           "viewport": 900
         },
         "focusedSimulationPanel": true
       }
     },
     {
+      "name": "Migrasi progres lama enam misi: lanjut misi tujuh, lencana pertama tetap ada",
+      "passed": true,
+      "milliseconds": 182,
+      "evidence": {
+        "preservedCompletions": 6,
+        "nextMission": 7,
+        "badges": 1,
+        "inventedConceptAnswers": 0
+      }
+    },
+    {
+      "name": "Data progres rusak tidak membuat aplikasi berhenti",
+      "passed": true,
+      "milliseconds": 167,
+      "evidence": {
+        "damagedJSON": true,
+        "firstMissionAvailable": true,
+        "playbackUsable": true
+      }
+    },
+    {
+      "name": "Penyimpanan diblokir: bermain, menjawab, dan membuka misi berikutnya tetap berfungsi",
+      "passed": true,
+      "milliseconds": 2975,
+      "evidence": {
+        "blockedStorage": true,
+        "inMemoryProgressWorks": true,
+        "progressUnavailableAfterReload": true
+      }
+    },
+    {
       "name": "Web Audio asli: tidak otomatis, aktif setelah klik, menjadwalkan efek gerak",
       "passed": true,
-      "milliseconds": 375,
+      "milliseconds": 417,
       "evidence": {
         "contextStates": [
           "running"
@@ -286,7 +890,7 @@
     {
       "name": "Suara dimatikan: tidak menjadwalkan oscillator baru",
       "passed": true,
-      "milliseconds": 468,
+      "milliseconds": 418,
       "evidence": {
         "oscillatorStartsBefore": 5,
         "oscillatorStartsAfter": 5
@@ -295,7 +899,7 @@
     {
       "name": "Bacaan tanpa suara Indonesia: fallback teks tanpa membaca bahasa lain",
       "passed": true,
-      "milliseconds": 108,
+      "milliseconds": 130,
       "evidence": {
         "note": "Suara bahasa Indonesia belum tersedia. Ikuti teks petunjuk di layar.",
         "speechCalls": 0,
@@ -305,7 +909,7 @@
     {
       "name": "Volume, bacaan, gerak tenang, kecepatan tersimpan setelah reload",
       "passed": true,
-      "milliseconds": 285,
+      "milliseconds": 301,
       "evidence": {
         "saved": {
           "sound": true,
@@ -320,7 +924,7 @@
     {
       "name": "Reduced motion: gerak tenang, tanpa transisi dan confetti, misi tetap berfungsi",
       "passed": true,
-      "milliseconds": 919,
+      "milliseconds": 890,
       "evidence": {
         "transitionDuration": "0s",
         "heroAnimation": "none",

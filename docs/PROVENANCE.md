@@ -1,5 +1,13 @@
 # Asal proyek dan riwayat
 
+## Kelanjutan pada main — 9 Oktober 2026
+
+Peserta sudah membuat `main` pada commit `392e25df916d9b2f3b2630dfeae5810c06c6061b`, dengan commit asli `e3b6eae` sebagai parent. Perluasan 12 misi memakai `main` ini sebagai dasar; checkout cloud kini juga berada pada branch `main` dengan empat commit asli tetap sebagai leluhur. Catatan tentang checkout `work` tanpa commit di bawah menjelaskan kondisi pada sesi sebelumnya. Source peserta tidak di-reset atau ditimpa dari bundle; riwayat tetap tersambung.
+
+Repository public telah diverifikasi dari metadata halaman GitHub pada sesi upload dan 9 Oktober. Tanggal pembuatan repository belum diverifikasi secara independen. Hosting belum terverifikasi berhasil; status dan penyebab kegagalan Pages dicatat di `DEPLOYMENT.md`.
+
+## Riwayat impor dan penyempurnaan — 8 Oktober 2026
+
 Kode dasar berasal dari `Innovating-M-ONE.zip` yang diunggah peserta dalam sesi 8 Oktober 2026. Penyempurnaan suara/animasi dilakukan pada kode itu setelah membaca panduan PPT serta memperbarui PRD dan AI Guide. Tidak ada klaim bahwa kode dasar dibuat oleh sesi ini.
 
 SHA-256 ZIP asli: `7adadd08480612cb43cd3920ba84ccbfba632d27c3f72e8fbc7040d9d96d5454`.
@@ -24,4 +32,4 @@ git clone docs/provenance/original-history.bundle /tmp/detektif-history-restored
 git -C /tmp/detektif-history-restored log --oneline
 ```
 
-Tidak ada riwayat yang ditulis ulang, tanggal commit yang dimanipulasi, atau push/deployment yang dilakukan dalam sesi ini. Status public repository dan URL hosting harus dibuktikan sebelum submit. Ketentuan jumlah prompt terkurasi perlu klarifikasi: slide 5 maksimal lima, slide 12 lima. Batas pengumpulan 15 Oktober 2026 pukul 15.30 WIB.
+Saat penyempurnaan awal 8 Oktober, belum ada push/deployment. Pengunggahan ZIP berikutnya tercatat di `GITHUB_DOWNLOADS.md`; kelanjutan 12 misi memakai main seperti dijelaskan di atas. Tidak ada riwayat yang ditulis ulang atau tanggal commit yang dimanipulasi. URL hosting tetap harus dibuktikan sebelum submit. Ketentuan jumlah prompt terkurasi perlu klarifikasi: slide 5 maksimal lima, slide 12 lima. Batas pengumpulan 15 Oktober 2026 pukul 15.30 WIB.

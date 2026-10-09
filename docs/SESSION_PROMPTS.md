@@ -214,3 +214,67 @@ Interpretasi: perbaiki konflik port pada skrip preview yang diberikan. Workaroun
 ```text
 Read-only review /workspace/M-ONE/scripts/preview.mjs for pasted Windows Node EADDRINUSE :::4173. Root will implement bounded fallback to next10 ports only for default PORT, explicit PORT should fail politely without killing processes, validate range1..65535, keep std Node cross-platform. Suggest meaningful lightweight integration checks for occupied default port/occupied explicit port/invalid port/readiness and Windows guidance. Do not edit files or run/kill servers; root owns source/testing. Be concise.
 ```
+
+Hasil tindak lanjut: commit `61caa1d3b7c9d8fc18513a92de2612d548d4d85f` berhasil di-push ke `downloads` secara fast-forward. ZIP terbaru dan skrip preview pada URL commit tersebut masing-masing HTTP 200 dan hash cocok dengan berkas lokal. Sembilan pemeriksaan preview lulus di cloud Linux; pengujian langsung Windows belum dilakukan.
+
+## Pengguna — tambah stage dan push main (9 Oktober 2026)
+
+```text
+tambahkan stage nya, dan lengkapi lagi, tanyakan aku apa yang perlu idlengkapi jika kamu tidak tau. langsung push aja ke github branch main
+```
+
+### Pertanyaan preferensi aktual dan jawaban pengguna
+
+```text
+Untuk tambahan stage, arah mana yang kamu inginkan? Saya akan mulai dari misi 7–12 tentang belokan, pengulangan, dan mencari kesalahan, dengan peta serta cerita baru.
+Jawaban: Tambah menjadi 12 misi (disarankan)
+
+Bagian tambahan mana yang paling ingin kamu prioritaskan setelah stage baru?
+Jawaban: Peta stage, lencana, dan rangkuman belajar (disarankan)
+```
+
+Keputusan: gunakan `main` yang sudah berisi pekerjaan peserta (`392e25d`) sebagai dasar; pertahankan enam misi dan progres lama. `PRD.md` dan `AI_GUIDE.md` diperbarui sebelum perluasan kode. Pengujian nyata dan batas bukti tersedia di `VALIDATION.md`. Perintah push main sudah diberikan pengguna; tidak menulis ulang riwayat.
+
+### Prompt delegasi aktual — data misi dan pembelajaran
+
+```text
+New user answered: total12 missions, prioritize stage map/badges/learning summary, pushmain authorized. Read updated docs/AI_GUIDE.md+PRD before code. Own NEW src/missions.js only: copy original first6 MISSIONS from current app.js unchanged including ids/states/hints. Add six missions7–12 progressing sequence/loops/routes, no conditionals/newcommand. Export MISSIONS, STAGES (3 stage objects id1..3,title,description,badge {title,description}, missionIds [1..4],[5..8],[9..12]), mapSize(mission) => {width,height} defaults5x4. Each mission has stageId by 4group, objective:string, takeaway:string, optional size:{width,height}, walls:[{x,y}], reflection:{question,choices:[3 simple strings],correctIndex,explanations:[3 strings]}, original missions also reflection/objective/takeaway. New maps may6x4/6x5 maxwidth6 for readability; several walls visibly block buggy forward route, valid solutions avoid them. Use existing7commands only. Give every mission a concept question that tests understanding without merely revealing solution. Preserve3gradualhints. Root changes app simulate to support size/walls. You may verify routes with independent inline simulator then once root exports simulate run allsolutions. No edits app/style/scripts/docs. Report exact additions and risks.
+```
+
+### Prompt delegasi aktual — penyimpanan progres
+
+```text
+Own NEW src/progress.js and NEW scripts/verify-progress.mjs only. Read updated docs/AI_GUIDE.md+PRD. Implement dependency-free Node-safe progression functions using optional storage argument; keep key detektif-bug-progress-v1 for old migration (existing old {completed:[bool6]}). API: export PROGRESS_KEY; emptyProgress(missions) => {completed:boolean[], understood:boolean[], lastMissionIndex:0}; readProgress(missions,storage = globalThis.localStorage safely) shape padded/truncated12, legacy sixkept, completed prefix normalize (holes beyond firstfalse should stay false except? don't erase real old flags: preserve literalboolonly not Boolean("false")), understood onlytrue ifcompletedtrue, lastMissionIndex valid unlocked; writeProgress(progress,storage...) return true/false no throws; isUnlocked(index,completed) bounds integer and previouscomplete (or completedindex itself to retainold accessible) ; recordCompletion(progress,index) immutable markcompletedtrue; recordReflection(progress,index,correct) immutable store understoodtrue onlycorrect and alreadycompleted, wrong never eraseprevioustrue; earnedBadges(progress,stages) => stage ids whenallstage missionIds complete; learningSummary(progress,missions) => {completed,total,understood,nextMissionIndex} firstincomplete or null. No attemptpenalty/timefake/PII. Tests meaningfulmigration six, malformed, unavailable/private storage, holes/outofbounds, immutable, replayansweredtrue, badges boundaries. You may adapt signatures only if message root first. Root will integrate state.progress with references state.completed=progress.completed. No other files.
+```
+
+### Prompt delegasi aktual — pemeriksaan simulasi
+
+```text
+New stage extension total12 /peta stage,badges,learning summary user confirmed. Readupdateddocs AI_GUIDE/PRD. Own scripts/verify-missions.mjs only plus read-only audit; root app integration, guide_review owns src/missions.js; audio_module owns src/progress.js. Enhance meaningfulsimulationtests for all12: boarddimensions via mapSize exportedmissions, wallblockedmoves don't change position, correctsolutionavoidswalls, alternativeprogram valid, first6 unchangedprogress. Preserve existing27 cases adjustinglabels to12 dynamiccounts. Future app exports same COMMANDS MISSIONS simulate plus mapSize importfrommissions. Add reflectioncontentvalid3choices/correctIndex3explanations/stageIds eachfour, originalsixsolutionssame, sequenceinvalids/allnewwrong. Waitnewmoduleavailable asneeded then run npm run test:missions report. No editapp/styles/missions/progress/browser.
+```
+
+### Prompt delegasi aktual — review integrasi
+
+```text
+Read-only review current /workspace/M-ONE src/app.js src/missions.js src/progress.js integration for new12mission stage/reflection/badge UI. Focus bugs persistence unlocked/quiz/runreset/error state accessibility; do not modify files. Root finishing CSS and browseragenttesting. Report concrete bugs withline refs, only actionable findings.
+```
+
+Hasil review yang diperbaiki: panduan yang terbuka saat playback kini menjeda simulasi sehingga tidak terhapus oleh hasil akhir; jawaban konsep benar memindahkan fokus keyboard ke penjelasan.
+
+### Prompt delegasi aktual — browser dua belas misi
+
+```text
+Extend ONLY scripts/verify-browser.mjs (and generated docs/browser-results.json/screenshots) for new12mission extension. Root app/stylesstill being integrated; do not run until root says buildready but prepare. App exports COMMANDS MISSIONS simulate unchanged; data separate missions.js exportingSTAGES,mapSize. UI .mission-item still all12sidebarbuttons groupedstage. New .stage-card[data-stage-id] with .stage-launch/data-actionselect-stage/data-stage=1..3; .stage-node data-actionjump-mission index; .badge-item.is-earned; #learning-summary details; .reflection-choice data-actionanswer-reflection data-choice=0..2; .reflection-feedback text and .is-correct. Aftermissioncompleted reflectsection displays question, wrongchoice explains allowsretry, correctpersistsunderstood and disablesanswers; nextmission remainsavailable exceptlast showsdata-actionshow-summary. Legacy completed6 should read and startmission7, keepfirst6 and firstbadge; keydetektif-bug-progress-v1 shape now completed12/understood12/lastMissionIndex. Root create stage map and learning summary threebadges, countspersist. Expandtests all12 true/initialfalse, reflectionswrongthenright, stageunlockat4/8/12, wallmotionholds, boardsizecellcount24/30, sidebar+stage nodes remainaccessible. Originalloop/audio/reset reducedmotionregressions. Layout375/768/1024/1440 inspectbothlate6x5andinitial; realrobot displacement6col. Don't insert correctprogramdirectstate; useclicks. Ensure learningconceptunderstood isquestionanswer only not claimingstudy. Add migrationcontext staleprogress six and blockedstorage ifviable. Capturelatest phone+desktop stage map/playboard. Scriptsnapshot inputs shouldn't narratetext so timeoutfornewinitialup to30sec. Root will notifybuild. Reportbugs assoonasseen.
+```
+
+Koordinasi browser aktual setelah build:
+
+```text
+Build0.2.0 sudah siap di dist, preview4173masih berjalan. Silakan jalankan suite lengkap dan ambil screenshot. CSS stage/summary/reflection/dialog serta grid ukuran dinamis selesai. open-help sekarang pauseProgram sebelum showModal. Saya tambahkan focusfeedback setelahcorrectquiz, rebuildsebentar tidakubahdata. Laporkan fail dan bisa adjustrunner bilaassertyangkeliru. Root tidakmengeditrunner.
+```
+
+```text
+Keduatemuanreview diperbaiki: pause saatopen-help; correctreflection memindahkanfocuske.reflection-feedback tabindex=-1. Buildfinalsiap. Silakanincludekeyboardcorrectfokus & openhelpduringrunning jika belum, totalcount sesuaiactual.
+```
+
+Hasil browser nyata: **69/69 lulus**, exit 0, console error 0, request gagal 0. Screenshot berasal dari progres yang diperoleh runner; bukan hasil uji anak/guru. Bunyi dijadwalkan melalui Web Audio tetapi belum didengarkan manusia. Draft konfigurasi cloud diperbarui ke `npm test` dan startup 12 misi; tool mengembalikan `status=saved`, `requires_publish=true`.

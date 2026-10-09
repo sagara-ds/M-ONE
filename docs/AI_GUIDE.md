@@ -2,6 +2,17 @@
 
 Dokumen ini menjadi acuan AI Agent untuk mengembangkan project setelah garis start lomba. Isinya adalah aturan kerja project, bukan bukti bahwa kode atau desain pernah dibuat sebelum garis start.
 
+## Acuan tambahan sebelum perluasan stage (9 Oktober 2026)
+
+- Permintaan dan pilihan peserta: total 12 misi; prioritaskan peta stage, lencana, dan rangkuman belajar. Push langsung ke `main` sudah diizinkan.
+- Gunakan commit `main` terbaru sebagai parent; pertahankan perubahan peserta serta riwayat lama. Tidak melakukan force push atau mengganti tanggal commit.
+- Enam misi awal tetap cocok dengan progres lokal lama. Tambahkan enam misi yang menggabungkan urutan dan pengulangan, dengan rute baru, ukuran peta yang tetap terbaca di ponsel, dan petak rak yang tidak bisa dilalui bila relevan.
+- Kelompokkan menjadi tiga stage berisi empat misi. Peta perkembangan, label terkunci, dan lencana harus mengikuti progres nyata; petunjuk tidak mengurangi penghargaan.
+- Setelah berhasil, tanyakan satu pertanyaan konsep sederhana dengan beberapa pilihan. Jawaban salah mendapat penjelasan dan boleh dicoba lagi; pertanyaan tidak menghalangi melanjutkan misi.
+- Simpan jawaban konsep dan progres per misi pada perangkat tanpa identitas pribadi. Bedakan keberhasilan simulasi dari jawaban konsep; jangan menyebutnya bukti peningkatan kemampuan anak.
+- Lencana diberikan setelah empat misi stage selesai. Jawaban konsep dicatat terpisah dan tidak menjadi syarat membuka misi atau lencana. Jangan membuat skor palsu, leaderboard, atau login.
+- Uji dua belas solusi dan program awal salah, rute terhalang, metadata pengulangan, migrasi progres enam misi lama, pertanyaan benar/salah, lencana, stage terkunci, ukuran peta, serta regresi playback/audio.
+
 ## Acuan tambahan sebelum perubahan suara dan animasi (8 Oktober 2026)
 
 - Lanjutkan kode yang diberikan peserta dalam `Innovating-M-ONE.zip`; jangan membuat ulang produk atau mengubah riwayat Git arsip.

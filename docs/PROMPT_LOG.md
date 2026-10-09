@@ -94,13 +94,26 @@ Mulai dari langkah pertama, kemudian lanjutkan sesuai urutan.
 
 **Debugging nyata:** timer percobaan lama bisa mengendalikan percobaan baru; render seluruh halaman tiap langkah menghilangkan transisi robot; caption sukses salah; petunjuk misi 6 menyebut jarak keliru; layout mobile melebar karena minimum track grid. Solusi dan pemeriksaan tercatat di `VALIDATION.md`.
 
+### Prompt 3 — Perluasan stage dan rangkuman belajar
+
+**Waktu:** 9 Oktober 2026, Asia/Jakarta; jam pengiriman mengikuti riwayat chat.
+
+**Prompt lengkap:**
+
+```text
+tambahkan stage nya, dan lengkapi lagi, tanyakan aku apa yang perlu idlengkapi jika kamu tidak tau. langsung push aja ke github branch main
+```
+
+**Pilihan lanjutan peserta:** “Tambah menjadi 12 misi (disarankan)” dan “Peta stage, lencana, dan rangkuman belajar (disarankan)”. Pertanyaan lengkap beserta jawaban dan delegasi nyata dicatat di `SESSION_PROMPTS.md`.
+
+**Hasil:** 12 misi dalam tiga stage, lencana berdasarkan empat misi selesai, pertanyaan konsep dengan kesempatan mencoba lagi, rangkuman, dan migrasi progres enam misi. Bukti tes serta status GitHub/hosting dicatat terpisah di `VALIDATION.md` dan `DEPLOYMENT.md`.
+
 ## Prompt berikutnya
 
-Tambahkan maksimal tiga entri lagi hanya setelah prompt tersebut benar-benar dikirim dan hasilnya benar-benar dikerjakan. Kategori bukan alasan untuk mengarang instruksi yang belum digunakan:
+Tambahkan maksimal dua entri lagi hanya setelah prompt tersebut benar-benar dikirim dan hasilnya benar-benar dikerjakan. Kategori bukan alasan untuk mengarang instruksi yang belum digunakan:
 
 | Nomor | Kategori panduan | Waktu | Prompt persis | Hasil terverifikasi |
 | --- | --- | --- | --- | --- |
-| 3 | Audit & optimasi | Belum digunakan | Belum digunakan | — |
 | 4 | Debugging | Belum digunakan | Belum digunakan | — |
 | 5 | Bebas | Belum digunakan | Belum digunakan | — |
 
@@ -110,6 +123,7 @@ Tambahkan maksimal tiga entri lagi hanya setelah prompt tersebut benar-benar dik
 | --- | --- | --- | --- | --- |
 | 1 | 8 Oktober 2026 | Pengguna | Prompt lengkap di atas. | `docs/PRD.md`, `docs/AI_GUIDE.md`, source code, hasil build dan smoke test. |
 | 2 | 8 Oktober 2026 | Pengguna | Penyempurnaan kode lampiran dengan suara, efek, animasi. | Teks lengkap di `SESSION_PROMPTS.md`; hasil sesi di `VALIDATION.md`. |
+| 3 | 9 Oktober 2026 | Pengguna | Perluasan 12 misi, peta stage, lencana, rangkuman, dan push main. | Teks lengkap dan jawaban preferensi di `SESSION_PROMPTS.md`; hasil aktual di `VALIDATION.md`. |
 
 Jangan mengisi baris dengan prompt rekaan. Jika prompt tambahan dikirim, salin teksnya apa adanya dan catat hasil yang benar-benar dapat diperiksa.
 
