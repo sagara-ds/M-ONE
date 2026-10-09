@@ -83,7 +83,7 @@ Verifier `scripts/verify-deployment.mjs` diuji pada preview lokal: **10 aset HTT
 
 Repository terverifikasi public dan dibuat 8 Oktober 2026, 18.50.40 WIB. Default server main dan hanya branch main terverifikasi melalui Git setelah penghapusan downloads. Sebelumnya semua commit unik downloads sudah dipush sebagai leluhur main; kedua ZIP tetap HTTP 200, valid, dan hash cocok melalui permalink commit.
 
-Run hosting setelah pengaturan environment peserta ditangani terpisah pada `DEPLOYMENT.md`. Chat awal GPT-5.6 Luna masih belum tersedia; jurnal tepat lima prompt nyata dan paket pengumpulan tidak menggantikan log mentah awal–akhir.
+Run hosting setelah pengaturan environment peserta ditangani terpisah pada `DEPLOYMENT.md`. Saat audit awal, chat GPT-5.6 Luna belum diberikan. Setelah unggahan jurnal, satu prompt awal lengkap tersedia dan cocok dengan history; peserta mengonfirmasi **“Hanya prompt pembangunan awal”**. Status sumber terbaru ada di [pemeriksaan unggahan](raw-prompts/USER_SUPPLIED_LUNA_JOURNAL_REVIEW.md). Jurnal tepat lima prompt nyata dan paket pengumpulan tidak menggantikan log mentah awal–akhir.
 
 
 ### Hasil hosting publik

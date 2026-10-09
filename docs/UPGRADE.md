@@ -11,4 +11,4 @@ ZIP proyek berisi source terbaru, dokumen, bukti pemeriksaan, bundle history asl
 
 Draft cloud sudah menyimpan `install_script` dan `start_skill`. Untuk memakainya pada task berikutnya, tinjau dan simpan perubahan di pengaturan environment, lalu publish environment. Publish environment berbeda dari deployment website ke hosting.
 
-Sebelum submit, lengkapi ekspor chat GPT sebelumnya, pastikan repo public dan URL hosting dapat dibuka, serta klarifikasi “maksimal 5” vs “5” prompt terkurasi. Batas submit 15 Oktober 2026 pukul 15.30 WIB.
+Sebelum submit, lampirkan prompt awal Luna dan log sesi penyempurnaan, pastikan repo public serta URL hosting dapat dibuka, dan periksa catatan “maksimal 5” vs “5” prompt terkurasi. Peserta mengonfirmasi hanya satu prompt pembangunan awal pada sesi Luna; teks lengkap sudah tersimpan. Ekspor chat, bila tersedia, dapat melengkapi bukti waktu pesan serta urutan docs sebelum kode yang belum terbukti dari jurnal. Batas submit 15 Oktober 2026 pukul 15.30 WIB.

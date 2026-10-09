@@ -1,0 +1,39 @@
+{
+  "source_file_name": "Teks tempel.txt",
+  "provided_by": "participant, uploaded pasted text",
+  "received_on": "2026-10-09",
+  "checked_at": "2026-10-09T02:21:53.022149+00:00",
+  "file": "USER_SUPPLIED_LUNA_JOURNAL.txt",
+  "size_bytes": 7402,
+  "sha256": "32d405b3ed6b2aa89e7a375ca558bbdc12518770af97d74e0a84837572dad973",
+  "classification": "historical-journal-copy",
+  "exact_match": {
+    "commit": "392e25df916d9b2f3b2630dfeae5810c06c6061b",
+    "path": "docs/PROMPT_LOG.md",
+    "byte_for_byte": true
+  },
+  "initial_prompt": {
+    "file": "LUNA_INITIAL_PROMPT_FROM_JOURNAL.txt",
+    "size_bytes": 3988,
+    "sha256": "ce3cf11a6c9287e76e5bafe75b9be4fb1e4aaf561dd7d2c274989f05a0cdcba0",
+    "extraction": "verbatim first fenced text block, no newline added",
+    "matches_prompt_in_commit": "e3b6eae61037455379a2cb644e79ed6b030cc014"
+  },
+  "full_initial_session_prompt_count_confirmed": true,
+  "scope_confirmation": {
+    "source": "participant reply to clarification question",
+    "received_on": "2026-10-09",
+    "question": "Berkas ini sama persis dengan jurnal proyek versi lama: satu prompt pembangunan awal lengkap dan ringkasan finishing. Di sesi GPT-5.6 Luna, apakah kamu hanya mengirim prompt pembangunan awal itu, atau ada prompt lanjutan juga?",
+    "answer": "Hanya prompt pembangunan awal",
+    "participant_reported_prompt_count": 1,
+    "independently_verified": false
+  },
+  "participant_reported_model": "GPT-5.6 Luna",
+  "model_independently_verified": false,
+  "limits": [
+    "This file is a journal copy, not a verified conversation export.",
+    "One complete initial prompt is present; the finishing entry points to SESSION_PROMPTS.md.",
+    "The participant confirmed that the initial Luna session used only this prompt; session scope is participant-reported, not independently verified from a conversation export.",
+    "No message-level timestamp or order of documentation/code actions is proven by this file."
+  ]
+}

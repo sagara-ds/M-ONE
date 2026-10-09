@@ -2,9 +2,11 @@
 
 Panduan M-ONE slide 5/6 mewajibkan log prompt awal–akhir. Log percakapan yang tersedia pada sesi Codex disimpan di [SESSION_PROMPTS.md](../SESSION_PROMPTS.md); lima prompt terkurasi ada di [PROMPT_LOG.md](../PROMPT_LOG.md).
 
-Peserta telah memberikan [tautan sumber chat GPT-5.6 Luna](GPT56_LUNA_SOURCE.md). Pembacaan dari cloud terhalang CONNECT 403; isi transcript belum berhasil diunduh atau diverifikasi. Folder ini memuat referensi sumber, bukan salinan log asli.
+Peserta telah memberikan [tautan sumber chat GPT-5.6 Luna](GPT56_LUNA_SOURCE.md), tetapi pembacaan tautan dari cloud terhalang CONNECT 403. Kemudian peserta mengunggah [salinan jurnal lama](USER_SUPPLIED_LUNA_JOURNAL.txt). [Pemeriksaan sumber](USER_SUPPLIED_LUNA_JOURNAL_REVIEW.md) membuktikan satu prompt awal lengkap tersedia dan cocok dengan riwayat proyek.
 
-Setelah ekspor asli tersedia:
+[Prompt awal apa adanya](LUNA_INITIAL_PROMPT_FROM_JOURNAL.txt) telah dilampirkan. Peserta mengonfirmasi **“Hanya prompt pembangunan awal”**, sehingga seluruh prompt sesi Luna tersedia sesuai pernyataannya. Konfirmasi cakupan tidak sama dengan pemeriksaan independen ekspor percakapan. Guidebook meminta log prompt, tidak secara eksplisit mewajibkan semua jawaban AI.
+
+Jika ekspor chat asli tersedia untuk melengkapi bukti urutan pengerjaan:
 
 1. Simpan salinan lengkap dalam format asli yang tersedia (TXT, Markdown, JSON, atau HTML) dengan nama yang menunjukkan sesi awal, misalnya `GPT56_LUNA_ORIGINAL.md`.
 2. Pertahankan urutan, teks, dan waktu yang tercatat. Jangan mengisi waktu yang hilang dengan perkiraan atau menulis ulang prompt sebagai rekonstruksi.
