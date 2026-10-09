@@ -1,10 +1,16 @@
 # Asal proyek dan riwayat
 
+## Bukti tanggal repository dan preservasi branch — 9 Oktober 2026
+
+Tanggal penciptaan repository terverifikasi melalui metadata first-party halaman public GitHub: **8 Oktober 2026, 18.50.40 WIB** (`2026-10-08T11:50:40.000Z`), sesudah garis start. Bukti terstruktur disimpan di [repository-metadata.json](provenance/repository-metadata.json), dengan identitas repository `1410241377`, owner `sagara-ds`, nama `M-ONE`, dan bukan fork. Ini melengkapi bukti tanggal commit, tetapi tidak menggantikan log proses awal–akhir.
+
+Seluruh history `downloads` dipertahankan sebagai leluhur main melalui merge `42ef26f3cd522a62e286e9b7a69eb98ad4f2c207`. Tree aplikasi tidak berubah dan hash source tetap cocok. Setelah default `main` terverifikasi di server, branch `downloads` dihapus atas permintaan peserta. Arsip lama tetap dapat diambil melalui SHA commit asli. Menghapus nama branch tidak menghapus commit atau ZIP yang telah dipertahankan dalam riwayat main.
+
 ## Kelanjutan pada main — 9 Oktober 2026
 
 Peserta sudah membuat `main` pada commit `392e25df916d9b2f3b2630dfeae5810c06c6061b`, dengan commit asli `e3b6eae` sebagai parent. Perluasan 12 misi memakai `main` ini sebagai dasar; checkout cloud kini juga berada pada branch `main` dengan empat commit asli tetap sebagai leluhur. Catatan tentang checkout `work` tanpa commit di bawah menjelaskan kondisi pada sesi sebelumnya. Source peserta tidak di-reset atau ditimpa dari bundle; riwayat tetap tersambung.
 
-Repository public telah diverifikasi dari metadata halaman GitHub pada sesi upload dan 9 Oktober. Tanggal pembuatan repository belum diverifikasi secara independen. Hosting belum terverifikasi berhasil; status dan penyebab kegagalan Pages dicatat di `DEPLOYMENT.md`.
+Repository public telah diverifikasi dari metadata halaman GitHub pada sesi upload dan 9 Oktober. Bukti tanggal repository yang kemudian ditemukan dijelaskan di bagian atas. Status hosting terbaru dicatat terpisah di `DEPLOYMENT.md`.
 
 ## Riwayat impor dan penyempurnaan — 8 Oktober 2026
 

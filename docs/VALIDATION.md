@@ -73,3 +73,14 @@ Isi `install_script` cloud yang diperbarui (`node --version`, `npm test`, `npm r
 Batas bukti tetap berlaku: belum ada uji anak/guru; bunyi belum didengarkan manusia; pengucapan suara Indonesia asli bergantung perangkat; belum ada pengujian Windows langsung; manfaat belajar masih hipotesis. Repository public terverifikasi, tetapi Pages sebelumnya gagal karena belum diaktifkan dan domain hosting ditolak proxy cloud. Push kode serta keberhasilan deployment adalah pemeriksaan terpisah; lihat `DEPLOYMENT.md`.
 
 Setelah pengujian, commit aplikasi `5b477196bdb16d46ccedfd7208960eceb303ea64` berhasil di-push ke `main`; SHA remote cocok. ZIP GitHub HTTP 200 dan source serta laporan browser cocok byte-for-byte. Run deployment `37871002740` tetap gagal pada Configure Pages karena Pages belum diaktifkan. Catatan hasil upload ditambahkan lewat commit dokumentasi tanpa perubahan source aplikasi.
+
+
+## Audit dan verifier deployment — 9 Oktober 2026
+
+Source aplikasi tetap identik dengan run 69 kasus browser; `source-manifest.sha256` kembali lulus. Setelah perubahan dokumentasi dan workflow, `npm test` kembali lulus 65 kasus simulasi serta tes progres, dan `npm run build` berhasil. Workflow YAML diperiksa dengan parser; verifier menerima URL dari output action deploy dan menggunakan environment github-pages yang dilindungi.
+
+Verifier `scripts/verify-deployment.mjs` diuji pada preview lokal: **10 aset HTTP 200**, hash cocok checkout, 12 misi/3 stage. Ini bukti kesiapan lokal, bukan pemeriksaan website publik. Harness sementara terpisah di cloud menjalankan **12 pemeriksaan** yang lulus: input URL/attempt invalid, normalisasi basepath, JSON dan summary append, source berubah, HTTP 404, MIME keliru, redirect, decoded gzip, retry, serta timeout body 10 detik. Kasus negatif menghasilkan exit 1 sebagaimana diharapkan; harness tidak dimasukkan sebagai dependensi aplikasi.
+
+Repository terverifikasi public dan dibuat 8 Oktober 2026, 18.50.40 WIB. Default server main dan hanya branch main terverifikasi melalui Git setelah penghapusan downloads. Sebelumnya semua commit unik downloads sudah dipush sebagai leluhur main; kedua ZIP tetap HTTP 200, valid, dan hash cocok melalui permalink commit.
+
+Run hosting setelah pengaturan environment peserta ditangani terpisah pada `DEPLOYMENT.md`. Chat awal GPT-5.6 Luna masih belum tersedia; jurnal tepat lima prompt nyata dan paket pengumpulan tidak menggantikan log mentah awal–akhir.

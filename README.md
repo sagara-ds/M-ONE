@@ -61,9 +61,11 @@ npm run build
 npm run preview
 ```
 
-`npm test` memeriksa simulasi dan aturan progres. `npm run build` membuat folder `dist/` yang siap diunggah ke static hosting. Repository: [sagara-ds/M-ONE](https://github.com/sagara-ds/M-ONE/tree/main). [Unduh kode branch main](https://github.com/sagara-ds/M-ONE/archive/refs/heads/main.zip), ekstrak ZIP, lalu jalankan perintah lokal di atas. Arsip lama di branch `downloads` adalah snapshot enam misi.
+`npm test` memeriksa simulasi dan aturan progres. `npm run build` membuat folder `dist/` yang siap diunggah ke static hosting. Repository: [sagara-ds/M-ONE](https://github.com/sagara-ds/M-ONE/tree/main). [Unduh kode branch main](https://github.com/sagara-ds/M-ONE/archive/refs/heads/main.zip), ekstrak ZIP, lalu jalankan perintah lokal di atas. `main` adalah satu-satunya branch dan default. Arsip enam misi tetap tersedia melalui [tautan commit historis](docs/GITHUB_DOWNLOADS.md), setelah seluruh history `downloads` digabungkan ke `main`.
 
-Workflow GitHub Pages menjalankan tes dan build setiap push ke `main`. Status hosting dan langkah konfigurasi dicatat di [DEPLOYMENT.md](docs/DEPLOYMENT.md); push berhasil belum berarti website berhasil terbit.
+Workflow GitHub Pages menjalankan tes dan build setiap push ke `main`, kemudian memeriksa URL hasil deploy dan SHA-256 sepuluh aset terhadap commit yang diterbitkan. Laporan HTTP disimpan sebagai artifact `website-verification` dan ringkasan run. Status hosting dicatat di [DEPLOYMENT.md](docs/DEPLOYMENT.md).
+
+Untuk memeriksa URL hosting yang sudah terbit, jalankan `npm run test:deployment -- https://sagara-ds.github.io/M-ONE/`. Ini adalah pemeriksaan teknis; lihat status deployment untuk hasil run nyata. Pemeriksaan browser 69 kasus dijalankan pada preview lokal dan tidak disebut sebagai uji pengguna anak/guru.
 
 Uji browser otomatis bersifat opsional dan memakai Playwright terpisah dari aplikasi. Contoh di cloud Linux, setelah preview berjalan (Chromium tersedia di `/usr/bin/chromium`):
 
@@ -77,4 +79,6 @@ Runner menyimpan hasil run baru ke `docs/browser-results.json` dan screenshot ke
 ## Aturan lomba yang dijadikan acuan
 
 Panduan PPT menyebut repo harus public, website harus dapat diakses melalui hosting, docs acuan AI dan jurnal prompt harus dilampirkan, serta hasil dibuat dari nol setelah 5 Oktober 2026 pukul 09.30 WIB. Slide 5 menyebut **maksimal 5 prompt**, slide 12 menyebut **5 prompt**; klarifikasi jumlah terkurasi ke panitia. Log mentah awal–akhir tetap diperlukan. Sesi GPT sebelumnya belum tersedia lengkap. Batas submit: **15 Oktober 2026, 15.30 WIB**.
+
+[Audit per ketentuan](docs/COMPETITION_AUDIT.md) dan [paket pengumpulan](docs/SUBMISSION.md) mencatat bukti yang tersedia serta kekurangannya. Jurnal kini memuat tepat lima prompt nyata. Tanggal repository terverifikasi **8 Oktober 2026, 18.50.40 WIB**; riwayat commit tetap utuh. Log awal GPT-5.6 Luna masih perlu dilampirkan untuk membuktikan proses awal–akhir dan urutan docs sebelum kode.
 

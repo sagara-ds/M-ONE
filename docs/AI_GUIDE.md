@@ -2,6 +2,17 @@
 
 Dokumen ini menjadi acuan AI Agent untuk mengembangkan project setelah garis start lomba. Isinya adalah aturan kerja project, bukan bukti bahwa kode atau desain pernah dibuat sebelum garis start.
 
+## Acuan audit lomba, deployment, dan pengelolaan branch (9 Oktober 2026)
+
+- Pengguna sudah memilih GitHub Actions pada pengaturan Pages dan meminta workflow dijalankan kembali; gunakan workflow yang ada pada `main` dan verifikasi run beserta hasil hosting.
+- Pengguna menginginkan hanya branch `main`, sebagai default. Pertahankan semua commit unik `downloads` sebagai leluhur `main` sebelum menghapus branch. Verifikasi `main` menjadi default di server; jangan menganggap perubahan `origin/HEAD` lokal sebagai perubahan default GitHub.
+- Arsip enam misi tetap snapshot historis. Tautkan ke commit `61caa1d3b7c9d8fc18513a92de2612d548d4d85f`, bukan branch yang akan dihapus. ZIP source terbaru berasal dari `main`.
+- Patuhi slide 5/6/10/12 guidebook: public repository, docs acuan, lima prompt terkurasi yang benar-benar digunakan, log mentah awal–akhir, dan website hosting yang bisa dibuka. Bedakan dokumen yang tersedia dari bukti asli yang masih harus disediakan peserta.
+- Jangan menghapus history, melakukan force push, mengubah tanggal, mengarang prompt/hasil pengguna, atau menyebut proyek pasti lolos bila bukti belum lengkap. Log GPT-5.6 Luna yang belum tersedia harus diimpor dari ekspor asli, tidak direkonstruksi.
+- Catat keberhasilan Git, workflow, dan hosting secara terpisah. Network CONNECT 403 dari cloud bukan bukti website publik mati.
+- Setelah action deploy berhasil, jalankan pemeriksaan HTTP dari runner GitHub terhadap halaman dan sembilan aset aplikasi. Bandingkan SHA-256 dengan checkout commit yang diterbitkan agar versi lama atau halaman 404 tidak dihitung sebagai sukses. Simpan hasil faktual sebagai artifact dan ringkasan run; pemeriksaan lokal tidak disebut pemeriksaan hosting.
+- Verifikasi tanggal pembuatan repository melalui metadata GitHub bila akses tersedia. Metadata tanggal commit saja bukan bukti tanggal pembuatan repo.
+
 ## Acuan tambahan sebelum perluasan stage (9 Oktober 2026)
 
 - Permintaan dan pilihan peserta: total 12 misi; prioritaskan peta stage, lencana, dan rangkuman belajar. Push langsung ke `main` sudah diizinkan.

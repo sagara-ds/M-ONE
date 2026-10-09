@@ -280,3 +280,51 @@ Keduatemuanreview diperbaiki: pause saatopen-help; correctreflection memindahkan
 Hasil browser nyata: **69/69 lulus**, exit 0, console error 0, request gagal 0. Screenshot berasal dari progres yang diperoleh runner; bukan hasil uji anak/guru. Bunyi dijadwalkan melalui Web Audio tetapi belum didengarkan manusia. Draft konfigurasi cloud diperbarui ke `npm test` dan startup 12 misi; tool mengembalikan `status=saved`, `requires_publish=true`.
 
 Hasil push aktual: commit aplikasi `5b477196bdb16d46ccedfd7208960eceb303ea64` berhasil di-push ke `main` secara fast-forward dari commit peserta `392e25d`; SHA remote cocok. ZIP main HTTP 200, valid, source aplikasi dan laporan hasil cocok dengan lokal. Run Pages `37871002740` gagal pada Configure Pages karena Pages belum diaktifkan (`Not Found`); website belum dapat dinyatakan berhasil deploy. Catatan ini ditambahkan melalui commit dokumentasi berikutnya, tanpa mengubah source yang diuji.
+
+## Pengguna — audit guidebook, default main, dan deployment (9 Oktober 2026)
+
+```text
+udah ku ganti ke github actions, jalankan ulang workflow nya. aku ingin branch download di hapus apakah bisa dan aman saja?, jadi hanya branch main yang ada dan dijadikan default. dan setelah semua ini masih mengikuti aturan guidebook yang aku berikan? jika tidak mengikuti aturannya maka buatlah agar ikuti aturannya
+```
+
+### Pertanyaan operasional aktual — default branch
+
+```text
+Branch `downloads` masih menjadi default. Akses API pengaturan GitHub dari cloud ditolak (CONNECT 403), sedangkan push Git berfungsi. Tolong ubah di GitHub: Settings → General → Default branch → `main`, lalu beri tahu statusnya. Saya tetap menyiapkan arsip dan deployment; `downloads` baru saya hapus setelah default `main` terverifikasi.
+Jawaban pengguna: Sudah diubah ke main
+```
+
+Hasil nyata: default `main` terverifikasi oleh `git ls-remote --symref`, semua commit unik downloads telah menjadi leluhur main melalui merge `42ef26f3cd522a62e286e9b7a69eb98ad4f2c207`, lalu push penghapusan downloads berhasil. Tanggal repository 8 Oktober 2026, 18.50.40 WIB ditemukan pada metadata JSON halaman public GitHub, bukan direka dari tanggal commit. Bukti: `provenance/repository-metadata.json`.
+
+### Pertanyaan operasional aktual — aturan environment
+
+```text
+Build berhasil, tetapi GitHub menolak deployment dengan pesan `Branch "main" is not allowed to deploy to github-pages due to environment protection rules`. Tolong buka Settings → Environments → github-pages → Deployment branches and tags, lalu tambahkan `main` pada daftar branch yang diizinkan. Beri tahu setelah tersimpan; saya akan menjalankan deployment kembali.
+Jawaban pengguna: main sudah diizinkan
+```
+
+Pemeriksaan run `37871880344`: build berhasil, deploy ditolak oleh aturan environment sebelum action berjalan. Hasil pengaturan atau deployment lanjutan dicatat hanya setelah diverifikasi.
+
+### Prompt delegasi aktual — audit ulang guidebook
+
+```text
+New request: user enabled Pages GitHub Actions, wants rerun workflow, delete downloadsbranch so onlymain/default, and verify/fix compliance with attached competition PPT. Own NEW docs/COMPETITION_AUDIT.md and NEW docs/SUBMISSION.md only. Read original guide (/tmp/mone-guide.txt plus PPT extraction if needed), all relevant docs/history, inspect guide exact mandatory deliverables/5prompts categories/date requirements, repoorigin public verification prior evidence. Audit everyrequirement with concreteproof/gaps and fixsubmissiondocs using current real data only. Original repo date can try readonlyapi metadata ifavailable but don'tdumpcredentials orclaimifunknown. Root handles git/workflow/admin settings; secondagent examinesbranch preservation. Do not alterotherdocs orcode. Report guide instructions separately from userrequest, any exact rule blockers, including referencedslides and what can be fixed now. Userrequests fullcompliance; AI guidebeforecode already existed originalhistory checkiftrue. No fakechat/log/tests/publishing/dates. If countguideexact5vsmax5, choose recommendationusing5actualexistingprompts from SESSION_PROMPTS but don't editcurated file rootwill handle.
+```
+
+### Prompt delegasi aktual — preservasi branch
+
+```text
+Read-only branch safety review in /workspace/M-ONE. User asks delete downloads so onlymain/default. Verify main8d9798a vs remote downloads61caa1d uniquecommits/artifacts; preserveoriginalhistory/codebundle. Determine safe minimal approach preserve downloads branch unique history/artifacts in main (nonworkingtree Git bundle+SHA manifest/oldZIP readmeor mergehistorically) before delete, branchcurrentlydefaultdownloads. Rootowns gitmutations/default/deletion. Inspect remote/local refs and current docs, report concretepreservationrecommendation no mutationsbranch orfiles, no creds. Explicituser askscanandsafe pluswantonlymain constitutesauthorizationoncebackup/main defaultverified; don'tdelete currentlydefault or skipuniquehistory.
+```
+
+### Prompt delegasi aktual — diagnosis kegagalan environment
+
+```text
+Read-only inspect newest GitHub Actions Pages deployment failure run37871880344 at https://github.com/sagara-ds/M-ONE/actions/runs/37871880344 (HTML cached /tmp/mone-latest-run-37871880344.html). User enabledPagesGitHubActions and justchangeddefaultmain; rootpushed42ef26f totriggerworkflow, runFailure butGetPagessitefailednotseen unlikeoldruns. Determineexacterror frompublicrun/jobpages andactionsource docs. API github CONNECT403/cloudPagesdomain403, webgithubworks. Do not editfiles/retrytrigger/mutate/settings. Rootaddingpubassetverificationstep aftersuccessfuldeploy; needprecise existingfail fix. Currentworkflow.readsource. Report statusannotations/advice relevanttoactualerror.
+```
+
+### Prompt delegasi aktual — pemeriksaan hasil hosting
+
+```text
+Own NEW scripts/verify-deployment.mjs only. Root updates workflow/docs. Need actual publicstaticdeployment verifier builtin Node18+ no deps. Input process.argv[2] or envDEPLOYED_SITE_URL, validateHTTPS(anyURL) orHTTPonly127.0.0.1/localhost/::1 forlocalreadiness, enforcebasepathtrailing/. Fetch10 publicpaths index.html,src/app.js,src/missions.js,src/progress.js,src/feedback.js,src/style.css,public/favicon.svg,3localfontWOFF2. HTTPmust200 andSHA256 downloaded decodedbytes identical localrepo files toverifycurrentstage12 artifact (contenttypeHTML/JS/CSS/SVG/font?). Retry wholechecks max6 attempts with5secdelay onlywhenHTTP/cachedbytesnotyetnew, boundedrequest10s AbortSignal.timeout supportedNode18. WriteJSONreport toDEPLOYMENT_REPORT_PATH optional (defaultno generatedrepo files); successstdoutURL/count/hash andreportincludesrealcheckedAt/baseUrl/modepublic-orlocal/currentCOMMIT_SHAifprovided,missions12/stages3 count viaimportmissions, checks statuses+hash, no artificialstudy. Onfailure exit1 explainasset/error noerrorcredentials. OptionalGITHUB_STEP_SUMMARYappend factual markdownonlyon successwithURL,count, noimages,etc (envsystemnotoverwrite). Need useful actualverification: runagainstexistinglocalhostpreview4173 (shouldpass currentdist); rejectmissingURLandHTTPexternal; testtemporaryownmockHTTPwithtamperedapp.js/status404 meaningfulfail withoutwaiting30s perhaps envretryoverride notneeded callscriptwith1attempt viaarg? Keepminimal accept DEPLOYMENT_ATTEMPTS in1..6 totest default6. Rootwilladdworkflowafterdeploy envURL/COMMIT_SHA/REPORTPATH andartifactuploadreport. Donoteditotherfiles/workflow/package/docs, do notrunremoteHTTPGitHubdomain fromcloud (403known) orstartunneededpublicservices. ReadlatestAIguide acuan audit beforecode, report actualchecks.
+```
