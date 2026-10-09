@@ -84,3 +84,10 @@ Verifier `scripts/verify-deployment.mjs` diuji pada preview lokal: **10 aset HTT
 Repository terverifikasi public dan dibuat 8 Oktober 2026, 18.50.40 WIB. Default server main dan hanya branch main terverifikasi melalui Git setelah penghapusan downloads. Sebelumnya semua commit unik downloads sudah dipush sebagai leluhur main; kedua ZIP tetap HTTP 200, valid, dan hash cocok melalui permalink commit.
 
 Run hosting setelah pengaturan environment peserta ditangani terpisah pada `DEPLOYMENT.md`. Chat awal GPT-5.6 Luna masih belum tersedia; jurnal tepat lima prompt nyata dan paket pengumpulan tidak menggantikan log mentah awal–akhir.
+
+
+### Hasil hosting publik
+
+Run [37872773713](https://github.com/sagara-ds/M-ONE/actions/runs/37872773713) berstatus **Success** pada commit34493d863be1c2eef300be82c28771b23611dd66. Metadata job menunjukkan **Deploy to GitHub Pages**, **Verify published website and assets**, dan upload artifact sukses. Verifier dilaksanakan di runner GitHub pada 9 Oktober 2026, **09.04.24 WIB**; sepuluh aset dari https://sagara-ds.github.io/M-ONE/ lolos HTTP200, MIME, dan hash checkout. Expected manifest: `5b97e9f469aa443a0085ed8a8cf4373e2bbe3678da75137514eba45094795202`.
+
+Bukti yang disimpan adalah metadata run/job teramati pada `provenance/deployment-evidence.json`, bukan salinan laporan HTTP asli. Laporan asli dibuat dan diunggah workflow sebagai artifact `website-verification` (30 hari). Akses langsung domain Pages dari cloud masih diblokir; tidak dibuat klaim 69 browserchecks dijalankan pada hosting. Tidak ada source aplikasi yang berubah sejak run browser lokal.

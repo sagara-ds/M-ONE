@@ -2,6 +2,8 @@
 
 Website belajar coding untuk anak kelas 3–5 SD. Anak membantu robot mengantar buku ke perpustakaan dengan menemukan dan memperbaiki kesalahan pada kartu perintah.
 
+**Website:** [sagara-ds.github.io/M-ONE](https://sagara-ds.github.io/M-ONE/). [Run deployment dan pemeriksaan hosting berhasil](https://github.com/sagara-ds/M-ONE/actions/runs/37872773713).
+
 ## Status
 
 Versi 0.2.0 berisi **12 misi dalam tiga stage**, peta perkembangan, tiga lencana, dan rangkuman belajar. Misi 7–12 menambahkan rute baru dan rak penghalang untuk berlatih belokan serta pengulangan. Enam misi awal tetap tersedia; progres lama dibaca tanpa dihapus.

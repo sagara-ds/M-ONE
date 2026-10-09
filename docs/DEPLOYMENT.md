@@ -1,5 +1,17 @@
 # Deployment
 
+## Website aktif — 9 Oktober 2026
+
+**URL:** https://sagara-ds.github.io/M-ONE/
+
+Run [37872773713](https://github.com/sagara-ds/M-ONE/actions/runs/37872773713) untuk commit `34493d863be1c2eef300be82c28771b23611dd66` berstatus **Success**. Build, deploy, **Verify published website and assets**, serta upload laporan berhasil. Langkah HTTP berlangsung pada **9 Oktober 2026, 09.04.24 WIB** menurut metadata job.
+
+Verifier di runner GitHub memeriksa **10 aset dari URL website publik**: HTTP 200, MIME benar, dan SHA-256 sama dengan checkout; versi yang diperiksa berisi 12 misi dan tiga stage. Manifest source yang dibandingkan: `5b97e9f469aa443a0085ed8a8cf4373e2bbe3678da75137514eba45094795202`. Bukti metadata run/job: [deployment-evidence.json](provenance/deployment-evidence.json). Laporan HTTP asli tersedia sebagai artifact **website-verification** pada run tersebut (retensi 30 hari).
+
+Lokasi pemeriksaan adalah runner GitHub. Akses HTTP langsung ke domain Pages dari cloud masih diblokir CONNECT 403; 69 pemeriksaan browser sebelumnya berasal dari preview lokal. Tidak ada klaim uji anak/guru atau pengujian browser pada hosting. Periksa juga secara langsung dari ponsel/komputer sebelum pengumpulan.
+
+`main` telah terverifikasi sebagai satu-satunya branch dan default. `downloads` dihapus setelah seluruh riwayat uniknya dipertahankan sebagai leluhur main; arsip commit tetap HTTP 200 dan hash cocok.
+
 ## Status terverifikasi — 9 Oktober 2026
 
 Repository [sagara-ds/M-ONE](https://github.com/sagara-ds/M-ONE/tree/main) merespons HTTP 200 tanpa token pada halaman public. Metadata GitHub menyatakan `repository_public=true`. Branch `main` yang dipakai sebagai dasar adalah `392e25df916d9b2f3b2630dfeae5810c06c6061b`; riwayat asli dari ZIP tetap menjadi leluhurnya. Perluasan 0.2.0 mengikuti branch ini dan menggunakan push biasa, tanpa force push.
@@ -12,7 +24,7 @@ Run baru [37871002740](https://github.com/sagara-ds/M-ONE/actions/runs/378710027
 
 Run [37801683837](https://github.com/sagara-ds/M-ONE/actions/runs/37801683837) untuk commit dasar gagal pada Configure Pages: **“Get Pages site failed… Pages enabled and configured to build using GitHub Actions… Not Found”**. Halaman run ini berhasil dibaca pada 9 Oktober. Pemeriksaan langsung calon domain Pages dari cloud ditolak proxy dengan CONNECT 403, sehingga itu bukan bukti website aktif atau mati.
 
-## Mengaktifkan GitHub Pages
+## Konfigurasi Pages yang digunakan
 
 1. Pada repository, buka **Settings → Pages → Build and deployment → Source: GitHub Actions**. Langkah ini memerlukan akses pengaturan repository; akses Git untuk push tidak otomatis menyediakan akses admin Pages.
 2. Buka [Actions](https://github.com/sagara-ds/M-ONE/actions/workflows/deploy-pages.yml), pilih workflow **Deploy Detektif Bug**, lalu **Run workflow** pada `main`, atau jalankan ulang run setelah Pages aktif.

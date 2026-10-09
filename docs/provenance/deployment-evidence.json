@@ -1,0 +1,31 @@
+{
+  "source": "Observed public GitHub Actions run and job metadata; verification executed by GitHub-hosted runner",
+  "checked_at": "2026-10-09T02:08:07.353794+00:00",
+  "run_url": "https://github.com/sagara-ds/M-ONE/actions/runs/37872773713",
+  "deploy_job_url": "https://github.com/sagara-ds/M-ONE/actions/runs/37872773713/job/113634430304",
+  "run_status": "Success",
+  "commit_sha": "34493d863be1c2eef300be82c28771b23611dd66",
+  "deployment_url": "https://sagara-ds.github.io/M-ONE/",
+  "deployment_step_conclusion": "success",
+  "verification_step": {
+    "name": "Verify published website and assets",
+    "conclusion": "success",
+    "started-at": "2026-10-09T02:04:24Z",
+    "completed-at": "2026-10-09T02:04:24Z"
+  },
+  "artifact_upload_conclusion": "success",
+  "artifact_name": "website-verification",
+  "verifier_assertions": {
+    "asset_count": 10,
+    "required_status": 200,
+    "required_bytes": "SHA-256 of decoded response matches checkout source",
+    "expected_manifest_sha256": "5b97e9f469aa443a0085ed8a8cf4373e2bbe3678da75137514eba45094795202",
+    "missions": 12,
+    "stages": 3
+  },
+  "limits": [
+    "Direct HTTP access to the Pages domain from the cloud was blocked by CONNECT 403.",
+    "Original HTTP report was generated and uploaded by the successful workflow; this file records observed workflow metadata, not a downloaded copy of that report.",
+    "The 69 browser checks were executed on local preview, not the published website. No child or teacher user study was performed."
+  ]
+}
