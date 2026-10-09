@@ -6,7 +6,7 @@ Dokumen ini hanya memuat prompt yang benar-benar dikirim dalam percakapan. Promp
 
 Slide 5 PPT menyebut “jurnal prompt terkurasi (maks 5 prompt)”, tetapi slide 12 menyebut “Jurnal prompt terkurasi (5 prompt)”. Klarifikasi yang diperlukan: **maksimal lima atau wajib tepat lima?** Log mentah awal–akhir tetap dilampirkan terpisah. Jangan menciptakan prompt untuk memenuhi angka lima.
 
-Entri awal di bawah diwarisi dari ZIP peserta. Klaim hasil sesi lama belum diverifikasi ulang secara keseluruhan; hanya pemeriksaan pada `docs/VALIDATION.md` yang menjadi bukti sesi penyempurnaan ini. Log lengkap sesi yang tersedia ada di [SESSION_PROMPTS.md](SESSION_PROMPTS.md). Tabel ringkasan di bawah bukan pengganti teks prompt lengkap. Riwayat GPT-5.6 Luna yang tidak dilampirkan masih perlu diekspor peserta untuk membuktikan log awal–akhir.
+Entri awal di bawah diwarisi dari ZIP peserta. Klaim hasil sesi lama belum diverifikasi ulang secara keseluruhan; hanya pemeriksaan pada `docs/VALIDATION.md` yang menjadi bukti sesi penyempurnaan ini. Log lengkap sesi yang tersedia ada di [SESSION_PROMPTS.md](SESSION_PROMPTS.md). Tabel ringkasan di bawah bukan pengganti teks prompt lengkap. Peserta telah memberikan [tautan chat GPT-5.6 Luna](raw-prompts/GPT56_LUNA_SOURCE.md); isi belum terbaca dari cloud (CONNECT 403). Salinan asli masih diperlukan untuk memeriksa log awal–akhir.
 
 ## Jurnal terkurasi
 
@@ -156,7 +156,7 @@ Node.js v24.18.1
 udah ku ganti ke github actions, jalankan ulang workflow nya. aku ingin branch download di hapus apakah bisa dan aman saja?, jadi hanya branch main yang ada dan dijadikan default. dan setelah semua ini masih mengikuti aturan guidebook yang aku berikan? jika tidak mengikuti aturannya maka buatlah agar ikuti aturannya
 ```
 
-**Keputusan dan hasil:** audit seluruh ketentuan PPT per slide, simpan bukti tanggal repository, pertahankan commit unik arsip dalam history main sebelum menghapus branch, perbaiki tautan unduhan, siapkan paket pengumpulan, serta jalankan workflow deployment. Status hosting dan hasil akhir mengikuti `DEPLOYMENT.md`, bukan dugaan dari push. Chat awal GPT-5.6 Luna yang belum diberikan tetap ditandai sebagai kekurangan.
+**Keputusan dan hasil:** audit seluruh ketentuan PPT per slide, simpan bukti tanggal repository, pertahankan commit unik arsip dalam history main sebelum menghapus branch, perbaiki tautan unduhan, siapkan paket pengumpulan, serta jalankan workflow deployment. Status hosting dan hasil akhir mengikuti `DEPLOYMENT.md`, bukan dugaan dari push. Saat audit awal, chat GPT-5.6 Luna belum diberikan. Tautan sumber kemudian diberikan peserta; isi dan kelengkapan transcript belum dapat diperiksa.
 
 ## Jumlah dan kategori kurasi
 
@@ -172,5 +172,5 @@ Tepat **lima prompt nyata** dipilih: ide/PRD (1), finishing (2), bebas/perluasan
 | 4 | 9 Oktober 2026 | Pengguna | Perluasan 12 misi, peta stage, lencana, rangkuman, dan push main (kurasi 3). | Teks lengkap dan jawaban preferensi di `SESSION_PROMPTS.md`; hasil aktual di `VALIDATION.md`. |
 | 5 | 9 Oktober 2026 | Pengguna | Audit guidebook, deployment, default main, dan penghapusan downloads (kurasi 5). | Teks asli `SESSION_PROMPTS.md`, audit `COMPETITION_AUDIT.md`. |
 
-Log lengkap yang tersedia ada di `SESSION_PROMPTS.md`, termasuk permintaan unduhan dan koordinasi yang tidak dipilih untuk kurasi. Ekspor chat awal GPT-5.6 Luna masih perlu dilampirkan; tabel ini tidak menggantikan log mentah awal–akhir.
+Log lengkap yang tersedia ada di `SESSION_PROMPTS.md`, termasuk permintaan unduhan dan koordinasi yang tidak dipilih untuk kurasi. Tautan chat awal GPT-5.6 Luna sudah dicatat, tetapi salinan isi belum diperoleh; tabel ini tidak menggantikan log mentah awal–akhir.
 

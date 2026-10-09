@@ -2,7 +2,7 @@
 
 Panduan M-ONE slide 5/6 mewajibkan log prompt awal–akhir. Log percakapan yang tersedia pada sesi Codex disimpan di [SESSION_PROMPTS.md](../SESSION_PROMPTS.md); lima prompt terkurasi ada di [PROMPT_LOG.md](../PROMPT_LOG.md).
 
-Ekspor asli sesi GPT-5.6 Luna yang menghasilkan proyek awal belum diberikan. Folder ini belum memuat atau mengklaim log tersebut.
+Peserta telah memberikan [tautan sumber chat GPT-5.6 Luna](GPT56_LUNA_SOURCE.md). Pembacaan dari cloud terhalang CONNECT 403; isi transcript belum berhasil diunduh atau diverifikasi. Folder ini memuat referensi sumber, bukan salinan log asli.
 
 Setelah ekspor asli tersedia:
 

@@ -337,3 +337,22 @@ Hasil akhir operasional pada sesi audit:
 - Run37872773713 pada commit34493d863be1c2eef300be82c28771b23611dd66 berhasil setelah pengaturan peserta. Deploy, verifier sepuluh aset hosting, dan upload artifact berhasil. URL dari run: https://sagara-ds.github.io/M-ONE/. Verifikasi dilakukan oleh runner GitHub; akses langsung cloud masih CONNECT403. Bukti metadata ada pada `provenance/deployment-evidence.json`.
 - Jurnal tepat lima prompt nyata, dokumen audit, dan paket pengumpulan tersedia. Chat awal GPT-5.6 Luna belum diberikan; bukti awal–akhir dan urutan docs sebelum kode tidak direkonstruksi.
 - Draf network menambahkan api.github.com dan sagara-ds.github.io; startup cloud diperbarui. Tool mengonfirmasi tersimpan, requires_publish=true; penyimpanan belum berarti perubahan runtime atau publikasi snapshot.
+
+
+## Pengguna — tautan sumber chat GPT-5.6 Luna (9 Oktober 2026)
+
+```text
+[https://chatgpt.com/s/cx_6ac84d7dced08191a442ef1e64a04cf0](https://chatgpt.com/s/cx_6ac84d7dced08191a442ef1e64a04cf0)
+
+itu isi chat ku dengan gpt 5.6 luna
+```
+
+Hasil pembacaan nyata: permintaan HTTPS ke URL tersebut dari cloud gagal `Tunnel connection failed: 403 Forbidden` / CONNECT403. Respons transcript tidak diperoleh. Tautan peserta disimpan sebagai sumber di `raw-prompts/GPT56_LUNA_SOURCE.md`; status kelengkapan log dan urutan docs sebelum kode belum diubah menjadi terbukti. Tidak ada isi chat lama yang direkonstruksi. Jurnal tetap lima entri; pemberian tautan ini masuk log mentah, bukan prompt terkurasi keenam.
+
+Draf network diperbarui untuk menambahkan `chatgpt.com`, dengan mempertahankan `api.github.com`, `sagara-ds.github.io`, dan preset yang sudah ada. Tool mengonfirmasi `status=saved`, `requires_publish=true`; penyimpanan belum mengaktifkan akses runtime atau menerbitkan environment.
+
+### Prompt delegasi aktual — status bukti chat
+
+```text
+New user provided shared ChatGPT link https://chatgpt.com/s/cx_6ac84d7dced08191a442ef1e64a04cf0 saying it is theirGPT5.6Luna chat. Rootfirst urllibfetch failsCONNECT403 clouddomainpolicy. Read-only check currentdocs/raw-prompts/README, COMPETITION_AUDIT, SUBMISSION and recommend precise status updates that record source URL without claiming full transcript or docs-beforecodeproof. Do NOT fetch via otherdomains/CI/proxies or bypassnetworkcontrols, nofileedit yet; rootmaynetworkdraftaddchatgpt.com preservingexistingAPI+Pages. Assess missingcontent needed forauthenticfull import, minimum user fallback no fabricatedlog, no need newapp tests. Report concise action.
+```
